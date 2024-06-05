@@ -2,7 +2,7 @@ from parse import parse
 from webob import Request, Response
 
 
-class Server:
+class WSGIHandler:
     def __init__(self) -> None:
         self.urls = {}
 
