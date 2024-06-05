@@ -17,5 +17,5 @@ pip install -r requirements.txt
 
 4- start server and run the project
 ```
-gunicorn app:runserve
+python manager.py runserver
 ```
