@@ -20,7 +20,7 @@ cp .env.example .env
 ```
 5- Create tables in database
 ```
-python manager.py migrate
+python manager.py migrations
 ```
 6- start server and run the project
 ```
