@@ -14,8 +14,15 @@ source venv/bin/activate
 ```
 pip install -r requirements.txt
 ```
-
-4- start server and run the project
+4- create your .env file and complete variables.
+```
+cp .env.example .env
+```
+5- Create tables in database
+```
+python manager.py migrate
+```
+6- start server and run the project
 ```
 python manager.py runserver
 ```

@@ -1,4 +1,5 @@
 import argparse
+import importlib.util
 import os
 import subprocess
 
@@ -21,6 +22,9 @@ class ManagementUtility:
         startapp = subparsers.add_parser("startapp", help="Create a new app")
         startapp.add_argument("name", help="name of the app")
 
+        # submit tables in database
+        subparsers.add_parser("migrations", help="submit tables in database")
+
         # createsuperuser command
         subparsers.add_parser("createsuperuser", help="Create a new super user")
 
@@ -38,6 +42,8 @@ class ManagementUtility:
         elif args.command == "startapp":
             name = args.name
             ManagementUtility.startapp(name=name)
+        elif args.command == "migrations":
+            ManagementUtility.migrations()
         else:
             parser.print_help()
 
@@ -62,8 +68,9 @@ class ManagementUtility:
                 pass
             models_filename = path / "models.py"
             os.makedirs(os.path.dirname(models_filename), exist_ok=True)
-            with open(models_filename, "x"):
-                pass
+            with open(models_filename, "w") as f:
+                f.write("import sqlalchemy as DB\n")
+                f.write("\nfrom source.model import Base\n")
             urls_filename = path / "urls.py"
             os.makedirs(os.path.dirname(urls_filename), exist_ok=True)
             with open(urls_filename, "w") as f:
@@ -78,6 +85,27 @@ class ManagementUtility:
             raise Exception(
                 f"ERROR -> There is a directory with the same name as your app!"
             )
+
+    @staticmethod
+    def import_module_from_file(module_name, file_path):
+        spec = importlib.util.spec_from_file_location(module_name, file_path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        return module
+
+    @classmethod
+    def migrations(cls):
+        print("start migrations ...")
+        for app in APPS:
+            file_path = os.path.join(BASE_DIR / app, "models.py")
+            module_name = "models"
+            cls.import_module_from_file(module_name, file_path)
+        from source.database import DatabaseConnection
+        from source.model import Base
+
+        DatabaseConnection.create_engin()
+        Base.metadata.create_all(DatabaseConnection.engin)
+        print("Done!")
 
     @classmethod
     def createsuperuser(cls):
