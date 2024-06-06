@@ -11,7 +11,9 @@ env.read_env(str(BASE_DIR / ".env"))
 URLS_DIR = BASE_DIR / "urls"
 
 
-APPS = []
+APPS = [
+    "users",
+]
 
 
 DB_USER = env("DB_USER")
