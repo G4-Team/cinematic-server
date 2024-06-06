@@ -66,20 +66,36 @@ class ManagementUtility:
             os.makedirs(os.path.dirname(init_filename), exist_ok=True)
             with open(init_filename, "x"):
                 pass
+
             models_filename = path / "models.py"
             os.makedirs(os.path.dirname(models_filename), exist_ok=True)
             with open(models_filename, "w") as f:
-                f.write("import sqlalchemy as DB\n")
+                f.write("import sqlalchemy as db\n")
                 f.write("\nfrom source.model import Base\n")
+
+            services_filename = path / "services.py"
+            os.makedirs(os.path.dirname(services_filename), exist_ok=True)
+            with open(services_filename, "w") as f:
+                f.write("from source.database import DatabaseConnection\n")
+                f.write("from sqlalchemy.orm import Session\n")
+
+            selectors_filename = path / "selectors.py"
+            os.makedirs(os.path.dirname(selectors_filename), exist_ok=True)
+            with open(selectors_filename, "w") as f:
+                f.write("from source.database import DatabaseConnection\n")
+                f.write("from sqlalchemy.orm import Session\n")
+
             urls_filename = path / "urls.py"
             os.makedirs(os.path.dirname(urls_filename), exist_ok=True)
             with open(urls_filename, "w") as f:
-                f.write(f"\napp_name = '{name}'\n")
+                f.write(f"\n\n\napp_name = '{name}'\n")
                 f.write(f"\n{name}_urls = {{}}\n")
+
             views_filename = path / "views.py"
             os.makedirs(os.path.dirname(views_filename), exist_ok=True)
-            with open(views_filename, "x"):
-                pass
+            with open(views_filename, "w") as f:
+                f.write("from users import selectors, services\n")
+                f.write("\nfrom webob import Request, Response\n")
 
         else:
             raise Exception(
