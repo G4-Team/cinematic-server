@@ -94,7 +94,7 @@ class ManagementUtility:
             views_filename = path / "views.py"
             os.makedirs(os.path.dirname(views_filename), exist_ok=True)
             with open(views_filename, "w") as f:
-                f.write("from users import selectors, services\n")
+                f.write(f"from {name} import selectors, services\n")
                 f.write("\nfrom webob import Request, Response\n")
 
         else:
