@@ -1,9 +1,10 @@
 import json
 
+import sqlalchemy.exc as exc
 from webob import Request, Response
 
 from users import selectors, services
-from users.serializers import user_serializer
+from users.serializers import UserSerializer
 
 
 def add_user_view(request: Request) -> Response:
@@ -11,8 +12,9 @@ def add_user_view(request: Request) -> Response:
     response.content_type = "application/json"
 
     data = request.params
-
+    serializer = UserSerializer(data=data)
     try:
+        serializer.validate()
         services.add_user(
             username=data["username"],
             email=data["email"],
@@ -22,6 +24,12 @@ def add_user_view(request: Request) -> Response:
         response.status_code = 201
         response_data = {
             "message": "SUCCESSFUL: user created successfuly",
+        }
+        response.text = json.dumps(response_data)
+    except KeyError as e:
+        response.status_code = 400
+        response_data = {
+            "message": f"ERROR: please send {str(e.args)}",
         }
         response.text = json.dumps(response_data)
     except Exception as e:
