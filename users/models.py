@@ -40,6 +40,3 @@ class User(Base):
         default=datetime.now(),
         nullable=False,
     )
-    # One-to-one relationship with Seat
-    # seat_id = db.Column(db.Integer, db.ForeignKey('seat.id'), nullable=True)
-    # seat = db.orm.relationship(back_populates="user")
