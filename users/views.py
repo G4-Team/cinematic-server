@@ -1,5 +1,6 @@
 import json
 
+import sqlalchemy.exc as exc
 from webob import Request, Response
 
 from users import selectors, services
