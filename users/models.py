@@ -40,5 +40,13 @@ class User(Base):
         default=datetime.now(),
         nullable=False,
     )
-
-    seat = db.orm.relationship("Seat", uselist=False, back_populates="user")
+    last_login = db.Column(
+        db.DateTime,
+        default=datetime.now(),
+        nullable=True,
+    )
+    seat = db.orm.relationship(
+        "Seat",
+        uselist=False,
+        back_populates="user",
+    )
