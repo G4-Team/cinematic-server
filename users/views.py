@@ -10,8 +10,7 @@ from users.serializers import UserSerializer
 def add_user_view(request: Request) -> Response:
     response = Response()
     response.content_type = "application/json"
-
-    data = request.params
+    data = json.loads(request.body)
     serializer = UserSerializer(data=data)
     try:
         serializer.validate()
