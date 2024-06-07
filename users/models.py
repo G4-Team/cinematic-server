@@ -40,3 +40,5 @@ class User(Base):
         default=datetime.now(),
         nullable=False,
     )
+
+    seat = db.orm.relationship("Seat", uselist=False, back_populates="user")

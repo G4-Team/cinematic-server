@@ -13,6 +13,9 @@ URLS_DIR = BASE_DIR / "urls"
 
 APPS = [
     "users",
+    'cinema',
+    'movie',
+    'bank',
 ]
 
 

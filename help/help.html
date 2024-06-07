@@ -1,13 +1,151 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .api {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+
+        .api h2 {
+            margin-top: 0;
+        }
+
+        .endpoint {
+            margin: 10px 0;
+        }
+
+        .method {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 3px;
+            color: #fff;
+        }
+
+        .GET {
+            background-color: #28a745;
+        }
+
+        .POST {
+            background-color: #007bff;
+        }
+
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        pre {
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        strong.success {
+            color: #28a745;
+        }
+
+        strong.wrong {
+            color: crimson;
+        }
+    </style>
 </head>
 
 <body>
-    <p>hello!</p>
+    <header>
+        <h1>Cinematic URLs Documentation</h1>
+    </header>
+    <div class="container">
+
+        <div class="api">
+            <span class="method GET">GET</span>
+            <p class="endpoint">http://127.0.0.1:8000/users/get/{id}/</p>
+            <p>Get a user</p>
+            <div class="example">
+                <strong>Status Code: 200 OK </strong><br><br>
+                <strong class="success">Successful Response Example:</strong>
+                <pre>[
+    {
+        "message": "SUCCESSFUL: user catch successfuly",
+        "user": {
+            "id": 1,
+            "username": "janesmith",
+            "email": "jane@example.com",
+            "phone": null,
+            "birthday": "2012-03-02",
+            "created_at": "2024-06-06 19:28:11"
+        }
+    }
+]</pre>
+            </div>
+            <div class="example">
+                <strong>Status Code: 400 Bad Request </strong><br><br>
+                <strong class="wrong">Failure Response Example:</strong>
+                <pre>[
+    {
+        "message": "ERROR: {error message}"
+        "user": "Not found"
+    }
+]</pre>
+            </div>
+        </div>
+
+
+        <div class="api">
+            <span class="method GET">GET</span>
+            <p class="endpoint">
+                http://127.0.0.1:8000/users/add?username={username}&email={email}&password={password}&birthday={yyyy-mm-dd}
+            </p>
+            <p>Create a new user</p>
+            <div class="example">
+                <strong>Status Code: 201 Created </strong><br><br>
+                <strong class="success">Successful Response Example:</strong>
+                <pre>[
+    {
+        "message": "SUCCESSFUL: user created successfuly",
+    }
+]</pre>
+            </div>
+            <div class="example">
+                <strong>Status Code: 400 Bad Request </strong><br><br>
+                <strong class="wrong">Failure Response Example:</strong>
+                <pre>[
+    {
+        "message": "ERROR: {error message}"
+    }
+]</pre>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

@@ -279,3 +279,5 @@ aran_web/media/
 .env
 .envs/*
 !.envs/.local/
+
+.idea/
