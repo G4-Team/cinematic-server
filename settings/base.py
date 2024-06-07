@@ -24,3 +24,5 @@ DB_PASSWORD = env("DB_PASSWORD")
 DATABASE_CONNECT_STR = (
     f"mysql+mysqlconnector://{DB_USER}:{DB_PASSWORD}@localhost:3306/cinematic"
 )
+
+JWT_SECRET = "TOP_SECRET_DONT_SEE"
