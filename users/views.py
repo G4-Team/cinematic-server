@@ -47,11 +47,19 @@ def get_user_view(request: Request, id: str) -> Response:
     response.content_type = "application/json"
     try:
         user = selectors.get_user(id=int(id))
+        if user is None:
+            response.status = 404
+            response_data = {
+                "message": "ERROR: user not foud!",
+            }
+            response.text = json.dumps(response_data)
+            return response
 
+        serializer = UserSerializer(instance=user)
         response.status_code = 200
         response_data = {
             "message": "SUCCESSFUL: user catch successfuly",
-            "user": user_serializer(user=user),
+            "user": serializer.serialized_data,
         }
         response.text = json.dumps(response_data)
 
