@@ -5,6 +5,6 @@ app_name = "users"
 users_urls = {
     "register/": register_user_view,
     "login/": login_view,
-    "profile/{id}/": profile_view,
+    "profile/{user_id}/": profile_view,
     "is_auth/": is_auth_view,
 }

@@ -64,6 +64,16 @@ class WSGIHandler:
 
         return response
 
+    def response_access_denied_not_owner(request):
+        response = JsonResponse()
+        response.status_code = 403
+        response_data = {
+            "message": "ERROR: access denied! you are not owner",
+        }
+        response.text = json.dumps(response_data)
+
+        return response
+
     def response_access_denied_not_admin(request):
         response = JsonResponse()
         response.status_code = 403

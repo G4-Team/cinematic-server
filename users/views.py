@@ -3,7 +3,12 @@ import json
 
 from webob import Request
 
-from source.decorators import admin_requirement, allowed_methods, auth_requirement
+from source.decorators import (
+    admin_requirement,
+    allowed_methods,
+    auth_requirement,
+    owner_requirement,
+)
 from source.response import JsonResponse
 from users import selectors, services
 from users.serializers import UserSerializer
@@ -44,12 +49,13 @@ def register_user_view(request: Request) -> JsonResponse:
     return response
 
 
+@owner_requirement
 @auth_requirement
 @allowed_methods(["GET"])
-def profile_view(request: Request, id: str) -> JsonResponse:
+def profile_view(request: Request, user_id: str) -> JsonResponse:
     response = JsonResponse()
     try:
-        user = selectors.get_user(id=int(id))
+        user = selectors.get_user(id=int(user_id))
         if user is None:
             response.status = 404
             response_data = {
