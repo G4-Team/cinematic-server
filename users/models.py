@@ -46,7 +46,6 @@ class User(Base):
     )
     last_login = db.Column(
         db.DateTime,
-        default=datetime.now(),
         nullable=True,
     )
     seat = db.orm.relationship(

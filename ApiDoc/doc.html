@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/an-old-hope.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .api {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+
+        .api h2 {
+            margin-top: 0;
+        }
+
+        .endpoint {
+            margin: 10px 0;
+        }
+
+        .method {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 3px;
+            color: #fff;
+        }
+
+        .GET {
+            background-color: #28a745;
+        }
+
+        .POST {
+            background-color: #007bff;
+        }
+
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        pre {
+            background-color: transparent;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        strong.success {
+            color: #28a745;
+        }
+
+        strong.wrong {
+            color: crimson;
+        }
+
+        div.endpoint {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .code-line {
+            background-color: #e8e8e8;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            display: inline-block;
+            color: #333;
+        }
+
+        .parameter {
+            color: #d6336c;
+            font-weight: bold;
+        }
+
+
+        api.menu {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .menu {
+            width: 100%;
+        }
+
+        .code-line {
+            background-color: #e8e8e8;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #333;
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .method {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: 800;
+            margin-right: 10px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            width: 75px;
+            font-size: 10px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .get {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .post {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .delete {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .put {
+            background-color: #ffc107;
+            color: #fff;
+        }
+
+        .common-word {
+            color: #007BFF;
+            font-weight: bold;
+        }
+
+        .parameter {
+            color: #d6336c;
+            font-weight: bold;
+        }
+
+        .icon {
+            margin-left: 10px;
+            font-size: 12px;
+            color: #666;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s;
+        }
+
+        .info {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .expanded .icon {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        .rounded {
+            border-radius: 20px !important;
+        }
+
+        .response-title {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 24px;
+            font-weight: bold;
+            color: #666;
+            /* Darker gray color for titles */
+            margin-top: 20px;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            /* Glowing effect */
+        }
+
+        .status-label {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .status-code,
+        .status-description {
+            font-family: 'Courier New', Courier, monospace;
+            display: inline-block;
+            padding: 4px 8px;
+            /* Reduced padding */
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .status-code {
+            background-color: #ccc;
+            color: #333;
+            margin-right: 10px;
+        }
+
+        .status-description {
+            background-color: #ccc;
+            color: #333;
+        }
+
+        .json-box {
+            padding: 10px;
+            background-color: #fff;
+            overflow-x: auto;
+            position: relative;
+            width: 100%;
+
+            /* border-left: 1px solid #ccc; */
+            float: right;
+        }
+
+        .json-title {
+            font-weight: bold;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            padding: 0 10px;
+            font-size: 15px;
+        }
+
+        li {
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px !important;
+        }
+
+        .api-descriptions {
+            font-family: Arial, sans-serif;
+            font-weight: 800;
+            font-size: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Cinematic URLs Documentation</h1>
+    </header>
+    <div class="container">
+
+        <div class="api">
+            <div class="menu">
+                <a href="#" class="code-line" onclick="toggleInfo(event, 'info1')">
+                    <span class="method post">POST</span><span class="common-word">users</span>/register/
+                    <span class="icon">▼</span>
+                </a>
+                <div id="info1" class="info">
+                    <div class="row justify-content-center">
+                        <div class="col-12" style="border-bottom: 1px solid #a4a4a4;width: 95%;">
+                            <div class="row">
+                                <div class="col-8">
+                                    <p class="api-descriptions">create a new user.</p>
+                                    <ul>
+                                        <li>
+                                            [username] muse be (unique), (less than 100 char), (contain uppercase and
+                                            lowercase letter)
+                                        </li>
+                                        <li>
+                                            [email] muse be (unique), (valid format)
+                                        </li>
+                                        <li>
+                                            [phone] muse be (valid format: starts with 09), (equal 11 char)
+                                        </li>
+                                        <li>
+                                            [password] muse be (contain at least 8 char), (contain at least two
+                                            characters from #$@&)
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-4">
+                                    <div class="json-box">
+                                        <h2 class="json-title">Required Data</h2>
+                                        <pre><code class="js rounded">
+{
+    "username": str,
+    "email": str,
+    "phone": str (nullable:true),
+    "birthday": str,
+    "password": str,
+}
+                            </code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Successful Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">201</div>
+                                    <div class="status-description">created</div>
+                                </div>
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "<span class="hljs-string">SUCCESSFUL: user created successfuly</span>",
+}
+                            </code></pre>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Failed Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">400</div>
+                                    <div class="status-description">bad request</div>
+                                </div>
+                            </div>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">405</div>
+                                    <div class="status-description">method not allowed </div>
+                                </div>
+
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "<span class="hljs-string">f"ERROR: {error}"</span>",
+}
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="code-line" onclick="toggleInfo(event, 'info2')">
+                    <span class="method post">POST</span><span class="common-word">users</span>/login/
+                    <span class="icon">▼</span>
+                </a>
+                <div id="info2" class="info">
+                    <div class="row justify-content-center">
+                        <div class="col-12" style="border-bottom: 1px solid #a4a4a4;width: 95%;">
+                            <div class="row">
+                                <div class="col-8">
+                                    <p class="api-descriptions">login user.</p>
+                                </div>
+                                <div class="col-4">
+                                    <div class="json-box">
+                                        <h2 class="json-title">Required Data</h2>
+                                        <pre><code class="js rounded">
+{
+    "username": str,
+    "password": str,
+}
+                            </code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Successful Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">200</div>
+                                    <div class="status-description">ok</div>
+                                </div>
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "<span class="hljs-string">SUCCESSFUL: user logged in</span>",
+}
+                            </code></pre>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Failed Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">400</div>
+                                    <div class="status-description">bad request</div>
+                                </div>
+
+                            </div>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">405</div>
+                                    <div class="status-description">method not allowed </div>
+                                </div>
+
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "<span class="hljs-string">f"ERROR: {error}"</span>",
+}
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="code-line" onclick="toggleInfo(event, 'info3')">
+                    <span class="method get">GET</span><span class="common-word">users</span>/profile/<span
+                        class="parameter">{id}</span>/
+                    <span class="icon">▼</span>
+                </a>
+                <div id="info3" class="info">
+                    <div class="row justify-content-center">
+                        <div class="col-12" style="border-bottom: 1px solid #a4a4a4;width: 95%;">
+                            <div class="row">
+                                <div class="col-8">
+                                    <p class="api-descriptions">get user information.</p>
+                                    <ul>
+                                        <li>
+                                            decorator1: authenticated_requirement
+                                        </li>
+                                        <li>
+                                            decorator2: owner
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-4">
+                                    <div class="json-box">
+                                        <h2 class="json-title">Required Data</h2>
+                                        <pre><code class="js rounded">
+valid credential in cookies request
+                            </code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Successful Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">201</div>
+                                    <div class="status-description">created</div>
+                                </div>
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "<span class="hljs-string">SUCCESSFUL: user catch successfuly</span>",
+    "user": {
+        "id": <span class="hljs-number">1</span>,
+        "username": "<span class="hljs-string">janesmith</span>",
+        "email": "<span class="hljs-string">jane@example.com</span>",
+        "phone": <span class="hljs-literal">null</span>,
+        "birthday": "<span class="hljs-string">2012-03-02</span>",
+        "last_login": "<span class="hljs-string">2024-06-06 19:28:11</span>",
+        "created_at": "<span class="hljs-string">2024-06-06 19:28:11</span>",
+        "wallet": <span class="hljs-number">0.0</span>,
+    }
+}
+                            </code></pre>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Failed Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">400</div>
+                                    <div class="status-description">bad request</div>
+                                </div>
+                            </div>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">401</div>
+                                    <div class="status-description">unauthorized</div>
+                                </div>
+                            </div>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">403</div>
+                                    <div class="status-description">forbidden</div>
+                                </div>
+                            </div>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">405</div>
+                                    <div class="status-description">method not allowed </div>
+                                </div>
+
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "<span class="hljs-string">f"ERROR: {error}"</span>",
+}
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleInfo(event, infoId) {
+            event.preventDefault();
+            const infoDiv = document.getElementById(infoId);
+            const codeLine = event.currentTarget;
+
+            if (infoDiv.style.display === 'none' || infoDiv.style.display === '') {
+                infoDiv.style.display = 'block';
+                codeLine.classList.add('expanded');
+            } else {
+                infoDiv.style.display = 'none';
+                codeLine.classList.remove('expanded');
+            }
+        }
+    </script>
+</body>
+
+</html>

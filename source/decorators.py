@@ -4,7 +4,7 @@ from source.wsgi import WSGIHandler
 
 def auth_requirement(view):
     def wrapper(*args, **kwargs):
-        if is_authenticate(*args, **kwargs):
+        if is_authenticate(request=args[0]):
             return view(*args, **kwargs)
         else:
             return WSGIHandler.response_access_denied_not_auth(*args, **kwargs)

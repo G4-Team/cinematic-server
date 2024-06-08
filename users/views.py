@@ -44,8 +44,9 @@ def register_user_view(request: Request) -> JsonResponse:
     return response
 
 
+@auth_requirement
 @allowed_methods(["GET"])
-def get_user_view(request: Request, id: str) -> JsonResponse:
+def profile_view(request: Request, id: str) -> JsonResponse:
     response = JsonResponse()
     try:
         user = selectors.get_user(id=int(id))
@@ -66,7 +67,7 @@ def get_user_view(request: Request, id: str) -> JsonResponse:
         response.text = json.dumps(response_data)
 
     except Exception as e:
-        response.status_code = 401
+        response.status_code = 400
 
         response_data = {
             "message": "ERROR: " + str(e),
@@ -86,7 +87,6 @@ def login_view(request: Request) -> JsonResponse:
             raise ValueError("invalid credentilas")
         if user.password != data["password"]:
             raise ValueError("invalid credentilas")
-        print("user.id=", user.id)
         services.update_user_info(user, last_login=datetime.datetime.now())
         token = creat_jwt_token(user_id=user.id)
 
@@ -121,7 +121,7 @@ def login_view(request: Request) -> JsonResponse:
 @allowed_methods(["GET"])
 @auth_requirement
 def is_auth_view(request: Request) -> JsonResponse:
-    response = Response()
+    response = JsonResponse()
     response_data = {
         "message": "Hello my dear :)",
     }

@@ -64,7 +64,9 @@ class UserSerializer:
                 "email": self.instance.email,
                 "phone": self.instance.phone,
                 "birthday": str(self.instance.birthday),
+                "last_login": str(self.instance.created_at),
                 "created_at": str(self.instance.created_at),
+                "wallet": self.instance.wallet.balance,
             }
             return user
         else:

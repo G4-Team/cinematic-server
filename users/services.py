@@ -7,25 +7,26 @@ from users.models import User
 
 
 def add_user(
-    *, username: str, email: str, phone=None | str, password: str, birthday: str
+    *, username: str, email: str, phone: None | str = None, password: str, birthday: str
 ) -> None:
-    session = Session(DatabaseConnection.engin)
-    user = User(
-        username=username,
-        email=email,
-        password=password,
-        birthday=birthday,
-    )
-    wallet = Wallet(
-        balance=0,
-        user=user,
-    )
-    session.add(user)
-    session.add(wallet)
-    session.commit()
+    with Session(DatabaseConnection.engin) as session:
+        user = User(
+            username=username,
+            email=email,
+            phone=phone,
+            password=password,
+            birthday=birthday,
+        )
+        wallet = Wallet(
+            balance=0,
+            user=user,
+        )
+        session.add(user)
+        session.add(wallet)
+        session.commit()
 
 
 def update_user_info(user: User, **kwargs):
-    conn = DatabaseConnection.engin.connect()
     stmt = update(User).where(User.id == user.id).values(kwargs)
-    conn.execute(stmt)
+    with DatabaseConnection.engin.begin() as conn:
+        conn.execute(statement=stmt)
