@@ -40,13 +40,21 @@ class User(Base):
         default=datetime.now(),
         nullable=False,
     )
+    is_admin = db.Column(
+        db.Boolean,
+        default=False,
+    )
     last_login = db.Column(
         db.DateTime,
-        default=datetime.now(),
         nullable=True,
     )
     seat = db.orm.relationship(
         "Seat",
+        uselist=False,
+        back_populates="user",
+    )
+    wallet = db.orm.relationship(
+        "Wallet",
         uselist=False,
         back_populates="user",
     )

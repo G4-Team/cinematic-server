@@ -1,8 +1,10 @@
-from users.views import add_user_view, get_user_view
+from users.views import is_auth_view, login_view, profile_view, register_user_view
 
 app_name = "users"
 
 users_urls = {
-    "add/": add_user_view,
-    "get/{id}/": get_user_view,
+    "register/": register_user_view,
+    "login/": login_view,
+    "profile/{id}/": profile_view,
+    "is_auth/": is_auth_view,
 }

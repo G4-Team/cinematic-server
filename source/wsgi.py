@@ -1,7 +1,10 @@
+import json
+
 from parse import parse
 from webob import Request, Response
 
 from settings.base import BASE_DIR
+from source.response import JsonResponse
 
 
 class WSGIHandler:
@@ -44,9 +47,39 @@ class WSGIHandler:
     def response_home(self, request):
         response = Response()
         response.content_type = "text/html"
-        models_filename = BASE_DIR / "help" / "help.html"
+        models_filename = BASE_DIR / "ApiDoc" / "doc.html"
         with open(models_filename, "r") as f:
             html_help_content = f.read()
 
         response.text = html_help_content
+        return response
+
+    def response_access_denied_not_auth(request):
+        response = JsonResponse()
+        response.status_code = 401
+        response_data = {
+            "message": "ERROR: access denied! you are not authenticated",
+        }
+        response.text = json.dumps(response_data)
+
+        return response
+
+    def response_access_denied_not_admin(request):
+        response = JsonResponse()
+        response.status_code = 403
+        response_data = {
+            "message": "ERROR: access denied! only admin access this url",
+        }
+        response.text = json.dumps(response_data)
+
+        return response
+
+    def response_method_not_allowed(request):
+        response = JsonResponse()
+        response.status_code = 405
+        response_data = {
+            "message": f"ERROR: method [{request.method}] not allowed",
+        }
+        response.text = json.dumps(response_data)
+
         return response
