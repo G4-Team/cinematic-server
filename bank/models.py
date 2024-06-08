@@ -23,6 +23,11 @@ class Bank(Base):
 
 class BankAccount(Base):
     __tablename__ = "bank_accounts"
+    id = db.Column(
+        db.Integer,
+        primary_key=True,
+        autoincrement=True,
+    )
     balance = db.Column(
         db.Float,
         default=0,

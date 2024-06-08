@@ -124,12 +124,41 @@ def login_view(request: Request) -> JsonResponse:
     return response
 
 
-@allowed_methods(["GET"])
+@owner_requirement
 @auth_requirement
-def is_auth_view(request: Request) -> JsonResponse:
+@allowed_methods(["PUT"])
+def change_profile_view(request: Request, user_id):
     response = JsonResponse()
-    response_data = {
-        "message": "Hello my dear :)",
-    }
-    response.text = json.dumps(response_data)
+    data = json.loads(request.body)
+    allowed_data = {}
+    if "username" in data:
+        allowed_data["username"] = data["username"]
+    if "email" in data:
+        allowed_data["email"] = data["email"]
+    if "phone" in data:
+        allowed_data["phone"] = data["phone"]
+    if "birthday" in data:
+        allowed_data["birthday"] = data["birthday"]
+
+    serializer = UserSerializer(data=allowed_data, partial=True)
+    try:
+        serializer.validate()
+        user = selectors.get_user(id=int(user_id))
+        services.update_user_info(user, **allowed_data)
+        response.status_code = 200
+        response_data = {
+            "message": "SUCCESSFUL: user updated successfully",
+        }
+        response.text = json.dumps(response_data)
+    except Exception as e:
+        response.status_code = 400
+        response_data = {
+            "message": f"ERROR: {str(e)}",
+        }
+        response.text = json.dumps(response_data)
+
     return response
+
+
+def change_password_view(request: Request, user_id):
+    pass
