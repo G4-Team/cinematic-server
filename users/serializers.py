@@ -33,7 +33,7 @@ class UserSerializer:
 
             phone = self.data.get("phone", None)
             if phone:
-                if len(phone) != 11 or not phone.startwith("09"):
+                if len(phone) != 11 or not phone.startswith("09"):
                     raise ValueError("phone -> phone not valid")
 
             password = self.data["password"]

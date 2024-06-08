@@ -1,3 +1,5 @@
+import json
+
 from parse import parse
 from webob import Request, Response
 
@@ -49,4 +51,37 @@ class WSGIHandler:
             html_help_content = f.read()
 
         response.text = html_help_content
+        return response
+
+    def response_access_denied_not_auth(request):
+        response = Response()
+        response.content_type = "application/json"
+        response.status_code = 403
+        response_data = {
+            "message": "ERROR: access denied! you are not authenticated",
+        }
+        response.text = json.dumps(response_data)
+
+        return response
+
+    def response_access_denied_not_admin(request):
+        response = Response()
+        response.content_type = "application/json"
+        response.status_code = 403
+        response_data = {
+            "message": "ERROR: access denied! only admin access this url",
+        }
+        response.text = json.dumps(response_data)
+
+        return response
+
+    def response_method_not_allowed(request):
+        response = Response()
+        response.content_type = "application/json"
+        response.status_code = 405
+        response_data = {
+            "message": f"ERROR: method [{request.method}] not allowed",
+        }
+        response.text = json.dumps(response_data)
+
         return response

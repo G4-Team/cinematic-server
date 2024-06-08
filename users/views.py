@@ -1,15 +1,18 @@
+import datetime
 import json
 
-import sqlalchemy.exc as exc
-from webob import Request, Response
+from webob import Request
 
+from source.decorators import admin_requirement, allowed_methods, auth_requirement
+from source.response import JsonResponse
 from users import selectors, services
 from users.serializers import UserSerializer
+from users.utils import creat_jwt_token
 
 
-def add_user_view(request: Request) -> Response:
-    response = Response()
-    response.content_type = "application/json"
+@allowed_methods(["POST"])
+def register_user_view(request: Request) -> JsonResponse:
+    response = JsonResponse()
     data = json.loads(request.body)
     serializer = UserSerializer(data=data)
     try:
@@ -41,9 +44,9 @@ def add_user_view(request: Request) -> Response:
     return response
 
 
-def get_user_view(request: Request, id: str) -> Response:
-    response = Response()
-    response.content_type = "application/json"
+@allowed_methods(["GET"])
+def get_user_view(request: Request, id: str) -> JsonResponse:
+    response = JsonResponse()
     try:
         user = selectors.get_user(id=int(id))
         if user is None:
@@ -70,4 +73,57 @@ def get_user_view(request: Request, id: str) -> Response:
         }
         response.text = json.dumps(response_data)
 
+    return response
+
+
+@allowed_methods(["POST"])
+def login_view(request: Request) -> JsonResponse:
+    response = JsonResponse()
+    data = json.loads(request.body)
+    try:
+        user = selectors.filter_users(username=data["username"]).first()
+        if user is None:
+            raise ValueError("invalid credentilas")
+        if user.password != data["password"]:
+            raise ValueError("invalid credentilas")
+        print("user.id=", user.id)
+        services.update_user_info(user, last_login=datetime.datetime.now())
+        token = creat_jwt_token(user_id=user.id)
+
+        response.status_code = 200
+        response.set_cookie(name="jwt", value=token, httponly=True)
+        response_data = {
+            "message": "SUCCESSFUL: user logged in",
+        }
+        response.text = json.dumps(response_data)
+
+    except KeyError as e:
+        response.status_code = 400
+        response_data = {
+            "message": f"ERROR: please send {str(e.args)}",
+        }
+        response.text = json.dumps(response_data)
+    except ValueError as e:
+        response_data = {
+            "message": f"ERROR: {str(e)}",
+        }
+        response.text = json.dumps(response_data)
+
+    except Exception as e:
+        response_data = {
+            "message": f"ERROR: {str(e)}",
+        }
+        response.text = json.dumps(response_data)
+
+    return response
+
+
+@allowed_methods(["GET"])
+@auth_requirement
+def is_auth_view(request: Request) -> JsonResponse:
+    response = Response()
+    response_data = {
+        "message": "Hello my dear :)",
+    }
+    response.text = json.dumps(response_data)
     return response
