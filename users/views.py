@@ -3,12 +3,7 @@ import json
 
 from webob import Request
 
-from source.decorators import (
-    admin_requirement,
-    allowed_methods,
-    auth_requirement,
-    owner_requirement,
-)
+from source.decorators import allowed_methods, auth_requirement, owner_requirement
 from source.response import JsonResponse
 from users import selectors, services
 from users.serializers import UserSerializer
@@ -160,5 +155,42 @@ def change_profile_view(request: Request, user_id):
     return response
 
 
+@owner_requirement
+@auth_requirement
+@allowed_methods(["PUT"])
 def change_password_view(request: Request, user_id):
-    pass
+    response = JsonResponse()
+    data = json.loads(request.body)
+    allowed_data = {}
+    try:
+        allowed_data["password"] = data["password"]
+        serlializer = UserSerializer(data=allowed_data, partial=True)
+        serlializer.validate()
+
+        user = selectors.get_user(id=int(user_id))
+
+        if user.password != data["old_password"]:
+            raise ValueError("incorrect old password")
+        if data["password"] != data["confirm_password"]:
+            raise ValueError("new password and confirm new password doesn't match")
+
+        services.update_user_info(user, **allowed_data)
+        response.status_code = 200
+        response_data = {
+            "message": "SUCCESSFUL: password updated successfully",
+        }
+        response.text = json.dumps(response_data)
+    except KeyError as e:
+        response.status_code = 400
+        response_data = {
+            "message": f"ERROR: please send {str(e.args)}",
+        }
+        response.text = json.dumps(response_data)
+    except Exception as e:
+        response.status_code = 400
+        response_data = {
+            "message": f"ERROR: {str(e)}",
+        }
+        response.text = json.dumps(response_data)
+
+    return response

@@ -22,8 +22,9 @@ class UserSerializer:
                 username = self.data.get("username", None)
                 email = self.data.get("email", None)
                 phone = self.data.get("phone", None)
-                password = None
+                password = self.data.get("password", None)
                 birthday = self.data.get("birthday", None)
+
             if username:
                 if len(username) > 100:
                     raise ValueError("username -> username must be less than 100 char")
@@ -47,6 +48,7 @@ class UserSerializer:
             if phone:
                 if len(phone) != 11 or not phone.startswith("09"):
                     raise ValueError("phone -> phone not valid")
+
             if password:
                 if len(password) < 8:
                     raise ValueError(
