@@ -58,3 +58,7 @@ class User(Base):
         uselist=False,
         back_populates="user",
     )
+    bank_account = db.orm.relationship(
+        "BankAccount",
+        back_populates="user",
+    )
