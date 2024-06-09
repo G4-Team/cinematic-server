@@ -169,6 +169,21 @@
             font-weight: bold;
         }
 
+        .common-word2 {
+            color: #28A745;
+            font-weight: bold;
+        }
+
+        .common-word3 {
+            color: #FFC107;
+            font-weight: bold;
+        }
+
+        .common-word4 {
+            color: #6610F2;
+            font-weight: bold;
+        }
+
         .parameter {
             color: #d6336c;
             font-weight: bold;
@@ -686,7 +701,209 @@ valid credential in cookies request
                                     <div class="status-code">405</div>
                                     <div class="status-description">method not allowed </div>
                                 </div>
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "<span class="hljs-string">f"ERROR: {error}"</span>",
+}
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="api">
+            <div class="menu">
+                <a href="#" class="code-line" onclick="toggleInfo(event, 'info6')">
+                    <span class="method post">POST</span><span class="common-word2">bank</span>/card/add/<span
+                        class="parameter">{user_id}</span>/
+                    <span class="icon">▼</span>
+                </a>
+                <div id="info6" class="info">
+                    <div class="row justify-content-center">
+                        <div class="col-12" style="border-bottom: 1px solid #a4a4a4;width: 95%;">
+                            <div class="row">
+                                <div class="col-8">
+                                    <p class="api-descriptions">add a new card for user.</p>
+                                    <ul>
+                                        <li>
+                                            decorator1: authenticated_requirement
+                                        </li>
+                                        <li>
+                                            decorator2: owner
+                                        </li>
+
+                                    </ul>
+                                </div>
+                                <div class="col-4">
+                                    <div class="json-box">
+                                        <h2 class="json-title">Required Data</h2>
+                                        <pre><code class="js rounded">
+valid credential in cookies request
+&&
+{
+    "bank_name": str,
+    "cvv2": str,
+    "password":,
+}
+                            </code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Successful Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">201</div>
+                                    <div class="status-description">created</div>
+                                </div>
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "<span class="hljs-string">SUCCESSFUL: card created successfully</span>",
+}
+                            </code></pre>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Failed Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">400</div>
+                                    <div class="status-description">bad request</div>
+                                </div>
+                            </div>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">401</div>
+                                    <div class="status-description">unauthorized</div>
+                                </div>
+                            </div>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">403</div>
+                                    <div class="status-description">forbidden</div>
+                                </div>
+                            </div>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">405</div>
+                                    <div class="status-description">method not allowed </div>
+                                </div>
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "<span class="hljs-string">f"ERROR: {error}"</span>",
+}
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+
+
+                <a href="#" class="code-line" onclick="toggleInfo(event, 'info7')">
+                    <span class="method get">GET</span><span class="common-word2">bank</span>/card/list/<span
+                        class="parameter">{user_id}</span>/
+                    <span class="icon">▼</span>
+                </a>
+                <div id="info7" class="info">
+                    <div class="row justify-content-center">
+                        <div class="col-12" style="border-bottom: 1px solid #a4a4a4;width: 95%;">
+                            <div class="row">
+                                <div class="col-8">
+                                    <p class="api-descriptions">lists user's cards.</p>
+                                    <ul>
+                                        <li>
+                                            decorator1: authenticated_requirement
+                                        </li>
+                                        <li>
+                                            decorator2: owner
+                                        </li>
+
+                                    </ul>
+                                </div>
+                                <div class="col-4">
+                                    <div class="json-box">
+                                        <h2 class="json-title">Required Data</h2>
+                                        <pre><code class="js rounded">
+valid credential in cookies request
+                            </code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Successful Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">200</div>
+                                    <div class="status-description">ok</div>
+                                </div>
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "SUCCESSFUL: cards retrived successfully",
+    "cards": {
+        "card0": {
+            "id": 2,
+            "bank_name": "@#x123456789",
+            "cvv2": "@#x1234567891010",
+            "balance": 1000.0
+        },
+        "card1": {
+            "id": 4,
+            "bank_name": "melli",
+            "cvv2": "1200",
+            "balance": 1000.0
+        },
+        "card2": {
+            "id": 5,
+            "bank_name": "saderat",
+            "cvv2": "896",
+            "balance": 1000.0
+        },
+        "card3": {
+            "id": 6,
+            "bank_name": "saderat",
+            "cvv2": "456",
+            "balance": 1000.0
+        },
+        "card4": {
+            "id": 3,
+            "bank_name": "taavon",
+            "cvv2": "659",
+            "balance": 1000.0
+        }
+    }
+}
+                            </code></pre>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Failed Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">400</div>
+                                    <div class="status-description">bad request</div>
+                                </div>
+                            </div>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">401</div>
+                                    <div class="status-description">unauthorized</div>
+                                </div>
+                            </div>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">403</div>
+                                    <div class="status-description">forbidden</div>
+                                </div>
+                            </div>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">405</div>
+                                    <div class="status-description">method not allowed </div>
+                                </div>
                             </div>
                             <pre><code class="json rounded">
 {
