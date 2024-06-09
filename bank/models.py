@@ -37,6 +37,10 @@ class BankAccount(Base):
         db.String(255),
         nullable=False,
     )
+    expiration_date = db.Column(
+        db.String(5),
+        nullable=False,
+    )
     password = db.Column(
         db.String(255),
         nullable=False,
