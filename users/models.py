@@ -62,7 +62,3 @@ class User(Base):
         "BankAccount",
         back_populates="user",
     )
-    cinemas = db.orm.relationship(
-        "Cinema",
-        back_populates="manager"
-    )
