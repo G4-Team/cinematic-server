@@ -803,7 +803,8 @@ valid credential in cookies request
 
 
                 <a href="#" class="code-line" onclick="toggleInfo(event, 'info7')">
-                    <span class="method post">POST</span><span class="common-word">users</span>/login/
+                    <span class="method get">GET</span><span class="common-word2">bank</span>/card/list/<span
+                        class="parameter">{user_id}</span>/
                     <span class="icon">▼</span>
                 </a>
                 <div id="info7" class="info">
@@ -811,72 +812,7 @@ valid credential in cookies request
                         <div class="col-12" style="border-bottom: 1px solid #a4a4a4;width: 95%;">
                             <div class="row">
                                 <div class="col-8">
-                                    <p class="api-descriptions">login user.</p>
-                                </div>
-                                <div class="col-4">
-                                    <div class="json-box">
-                                        <h2 class="json-title">Required Data</h2>
-                                        <pre><code class="js rounded">
-{
-    "username": str,
-    "password": str,
-}
-                            </code></pre>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12" style="margin-top: 30px; width: 95%;">
-                            <h2 class="response-title">Successful Response:</h2>
-                            <div class="category">
-                                <div class="status-label">
-                                    <div class="status-code">200</div>
-                                    <div class="status-description">ok</div>
-                                </div>
-                            </div>
-                            <pre><code class="json rounded">
-{
-    "message": "<span class="hljs-string">SUCCESSFUL: user logged in</span>",
-}
-                            </code></pre>
-                        </div>
-                        <div class="col-12" style="margin-top: 30px; width: 95%;">
-                            <h2 class="response-title">Failed Response:</h2>
-                            <div class="category">
-                                <div class="status-label">
-                                    <div class="status-code">400</div>
-                                    <div class="status-description">bad request</div>
-                                </div>
-
-                            </div>
-                            <div class="category">
-                                <div class="status-label">
-                                    <div class="status-code">405</div>
-                                    <div class="status-description">method not allowed </div>
-                                </div>
-
-                            </div>
-                            <pre><code class="json rounded">
-{
-    "message": "<span class="hljs-string">f"ERROR: {error}"</span>",
-}
-                            </code></pre>
-                        </div>
-                    </div>
-                </div>
-
-
-                <a href="#" class="code-line" onclick="toggleInfo(event, 'info3')">
-                    <span class="method get">GET</span><span class="common-word">users</span>/profile/<span
-                        class="parameter">{user_id}</span>/
-                    <span class="icon">▼</span>
-                </a>
-                <div id="info3" class="info">
-                    <div class="row justify-content-center">
-                        <div class="col-12" style="border-bottom: 1px solid #a4a4a4;width: 95%;">
-                            <div class="row">
-                                <div class="col-8">
-                                    <p class="api-descriptions">get user information.</p>
+                                    <p class="api-descriptions">lists user's cards.</p>
                                     <ul>
                                         <li>
                                             decorator1: authenticated_requirement
@@ -884,6 +820,7 @@ valid credential in cookies request
                                         <li>
                                             decorator2: owner
                                         </li>
+
                                     </ul>
                                 </div>
                                 <div class="col-4">
@@ -900,22 +837,44 @@ valid credential in cookies request
                             <h2 class="response-title">Successful Response:</h2>
                             <div class="category">
                                 <div class="status-label">
-                                    <div class="status-code">201</div>
-                                    <div class="status-description">created</div>
+                                    <div class="status-code">200</div>
+                                    <div class="status-description">ok</div>
                                 </div>
                             </div>
                             <pre><code class="json rounded">
 {
-    "message": "<span class="hljs-string">SUCCESSFUL: user catch successfuly</span>",
-    "user": {
-        "id": <span class="hljs-number">1</span>,
-        "username": "<span class="hljs-string">janesmith</span>",
-        "email": "<span class="hljs-string">jane@example.com</span>",
-        "phone": <span class="hljs-literal">null</span>,
-        "birthday": "<span class="hljs-string">2012-03-02</span>",
-        "last_login": "<span class="hljs-string">2024-06-06 19:28:11</span>",
-        "created_at": "<span class="hljs-string">2024-06-06 19:28:11</span>",
-        "wallet": <span class="hljs-number">0.0</span>,
+    "message": "SUCCESSFUL: cards retrived successfully",
+    "cards": {
+        "card0": {
+            "id": 2,
+            "bank_name": "@#x123456789",
+            "cvv2": "@#x1234567891010",
+            "balance": 1000.0
+        },
+        "card1": {
+            "id": 4,
+            "bank_name": "melli",
+            "cvv2": "1200",
+            "balance": 1000.0
+        },
+        "card2": {
+            "id": 5,
+            "bank_name": "saderat",
+            "cvv2": "896",
+            "balance": 1000.0
+        },
+        "card3": {
+            "id": 6,
+            "bank_name": "saderat",
+            "cvv2": "456",
+            "balance": 1000.0
+        },
+        "card4": {
+            "id": 3,
+            "bank_name": "taavon",
+            "cvv2": "659",
+            "balance": 1000.0
+        }
     }
 }
                             </code></pre>
@@ -945,180 +904,6 @@ valid credential in cookies request
                                     <div class="status-code">405</div>
                                     <div class="status-description">method not allowed </div>
                                 </div>
-
-                            </div>
-                            <pre><code class="json rounded">
-{
-    "message": "<span class="hljs-string">f"ERROR: {error}"</span>",
-}
-                            </code></pre>
-                        </div>
-                    </div>
-                </div>
-
-                <a href="#" class="code-line" onclick="toggleInfo(event, 'info4')">
-                    <span class="method put">PUT</span><span class="common-word">users</span>/change-profile/<span
-                        class="parameter">{user_id}</span>/
-                    <span class="icon">▼</span>
-                </a>
-                <div id="info4" class="info">
-                    <div class="row justify-content-center">
-                        <div class="col-12" style="border-bottom: 1px solid #a4a4a4;width: 95%;">
-                            <div class="row">
-                                <div class="col-8">
-                                    <p class="api-descriptions">change user information.</p>
-                                    <ul>
-                                        <li>
-                                            decorator1: authenticated_requirement
-                                        </li>
-                                        <li>
-                                            decorator2: owner
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-4">
-                                    <div class="json-box">
-                                        <h2 class="json-title">Required Data</h2>
-                                        <pre><code class="javascript rounded">
-valid credential in cookies request
-&&
-{
-    "username": str (optional),
-    "email": str (optional),
-    "phone": str (optional),
-    "birthday": str (optional),
-}
-                            </code></pre>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12" style="margin-top: 30px; width: 95%;">
-                            <h2 class="response-title">Successful Response:</h2>
-                            <div class="category">
-                                <div class="status-label">
-                                    <div class="status-code">200</div>
-                                    <div class="status-description">ok</div>
-                                </div>
-                            </div>
-                            <pre><code class="json rounded">
-{
-    "message": "<span class="hljs-string">SUCCESSFUL: user updated successfully</span>",
-}
-                            </code></pre>
-                        </div>
-                        <div class="col-12" style="margin-top: 30px; width: 95%;">
-                            <h2 class="response-title">Failed Response:</h2>
-                            <div class="category">
-                                <div class="status-label">
-                                    <div class="status-code">400</div>
-                                    <div class="status-description">bad request</div>
-                                </div>
-                            </div>
-                            <div class="category">
-                                <div class="status-label">
-                                    <div class="status-code">401</div>
-                                    <div class="status-description">unauthorized</div>
-                                </div>
-                            </div>
-                            <div class="category">
-                                <div class="status-label">
-                                    <div class="status-code">403</div>
-                                    <div class="status-description">forbidden</div>
-                                </div>
-                            </div>
-                            <div class="category">
-                                <div class="status-label">
-                                    <div class="status-code">405</div>
-                                    <div class="status-description">method not allowed </div>
-                                </div>
-
-                            </div>
-                            <pre><code class="json rounded">
-{
-    "message": "<span class="hljs-string">f"ERROR: {error}"</span>",
-}
-                            </code></pre>
-                        </div>
-                    </div>
-                </div>
-
-                <a href="#" class="code-line" onclick="toggleInfo(event, 'info5')">
-                    <span class="method put">PUT</span><span class="common-word">users</span>/change-password/<span
-                        class="parameter">{user_id}</span>/
-                    <span class="icon">▼</span>
-                </a>
-                <div id="info5" class="info">
-                    <div class="row justify-content-center">
-                        <div class="col-12" style="border-bottom: 1px solid #a4a4a4;width: 95%;">
-                            <div class="row">
-                                <div class="col-8">
-                                    <p class="api-descriptions">change user information.</p>
-                                    <ul>
-                                        <li>
-                                            decorator1: authenticated_requirement
-                                        </li>
-                                        <li>
-                                            decorator2: owner
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-4">
-                                    <div class="json-box">
-                                        <h2 class="json-title">Required Data</h2>
-                                        <pre><code class="javascript rounded">
-valid credential in cookies request
-&&
-{
-    "old_password": str,
-    "password": str,
-    "confirm_password": str,
-}
-                            </code></pre>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12" style="margin-top: 30px; width: 95%;">
-                            <h2 class="response-title">Successful Response:</h2>
-                            <div class="category">
-                                <div class="status-label">
-                                    <div class="status-code">200</div>
-                                    <div class="status-description">ok</div>
-                                </div>
-                            </div>
-                            <pre><code class="json rounded">
-{
-    "message": "<span class="hljs-string">SUCCESSFUL: password updated successfully</span>",
-}
-                            </code></pre>
-                        </div>
-                        <div class="col-12" style="margin-top: 30px; width: 95%;">
-                            <h2 class="response-title">Failed Response:</h2>
-                            <div class="category">
-                                <div class="status-label">
-                                    <div class="status-code">400</div>
-                                    <div class="status-description">bad request</div>
-                                </div>
-                            </div>
-                            <div class="category">
-                                <div class="status-label">
-                                    <div class="status-code">401</div>
-                                    <div class="status-description">unauthorized</div>
-                                </div>
-                            </div>
-                            <div class="category">
-                                <div class="status-label">
-                                    <div class="status-code">403</div>
-                                    <div class="status-description">forbidden</div>
-                                </div>
-                            </div>
-                            <div class="category">
-                                <div class="status-label">
-                                    <div class="status-code">405</div>
-                                    <div class="status-description">method not allowed </div>
-                                </div>
-
                             </div>
                             <pre><code class="json rounded">
 {
