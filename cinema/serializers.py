@@ -3,7 +3,7 @@ from cinema.selectors import filter_cinemas
 
 
 class CinemaSerializer:
-    def __init__(self, instance: Cinema = None, data: dict = None) -> None:
+    def __init__(self, instance: Cinema | None = None, data: dict | None = None) -> None:
         self.instance = instance
         self.data = data
 
