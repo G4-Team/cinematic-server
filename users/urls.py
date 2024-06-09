@@ -4,7 +4,6 @@ from users.views import (
     login_view,
     profile_view,
     register_user_view,
-    add_cinema_view,
 )
 
 app_name = "users"
