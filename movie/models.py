@@ -22,14 +22,19 @@ class Movie(Base):
         default=0,
     )
 
-    show_times = db.orm.relationship(
-        "Showtime",
+    # show_times = db.orm.relationship(
+    #     "Showtime",
+    #     back_populates="movie",
+    # )
+
+    movie_reviewes = db.orm.relationship(
+        "MovieReview",
         back_populates="movie",
     )
 
 
-class MovieComment(Base):
-    __tablename__ = "movie_comments"
+class MovieReview(Base):
+    __tablename__ = "movie_reviews"
 
     id = db.Column(
         db.Integer,
@@ -39,12 +44,10 @@ class MovieComment(Base):
     rate = db.Column(
         db.Float,
         nullable=True,
-        default=0,
     )
     text = db.Column(
         db.Text,
         nullable=False,
-        default="",
     )
 
     user_id = db.orm.mapped_column(
@@ -53,9 +56,27 @@ class MovieComment(Base):
     )
     user = db.orm.relationship(
         "User",
-        back_populates="movie_comment",
+        back_populates="movie_reviews",
+    )
+    movie_id = db.orm.mapped_column(
+        db.ForeignKey("movies.id"),
+        nullable=False,
+    )
+    movie = db.orm.relationship(
+        "Movie",
+        back_populates="movie_reviewes",
     )
 
-    is_reply = db.Column(
-        db.Boolean,
+    reply_to_id = db.orm.mapped_column(
+        db.ForeignKey("movie_reviews.id"),
+        nullable=True,
     )
+    reply_to = db.orm.relationship(
+        "MovieReview",
+        remote_side=[id],
+        backref="replies",
+    )
+    # replies = db.orm.relationship(
+    #     "MovieReview",
+    #     back_populates="reply_to",
+    # )

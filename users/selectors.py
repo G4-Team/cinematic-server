@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.orm.query import Query
 
 from cinema.models import Seat
+from movie.models import MovieReview
 from source.database import DatabaseConnection
 from users.models import User
 
