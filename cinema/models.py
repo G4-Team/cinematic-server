@@ -9,6 +9,7 @@ class Cinema(Base):
     id = db.Column(db.BigInteger, primary_key=True, autoincrement=True)
     name = db.Column(db.String(255), unique=True, nullable=False)
     ticket_price = db.Column(db.BigInteger, nullable=False)
+    manager: Mapped['User'] = db.orm.relationship(back_populates='cinemas')
     show_times: Mapped['Showtime'] = db.orm.relationship(back_populates='cinema')
     capacity = db.Column(db.Integer, nullable=False)
     number_of_row = db.Column(db.Integer, nullable=False)
