@@ -20,6 +20,7 @@ def register_user_view(request: Request) -> JsonResponse:
         services.add_user(
             username=data["username"],
             email=data["email"],
+            phone=data.get("phone", None),
             password=data["password"],
             birthday=data["birthday"],
         )
@@ -194,7 +195,3 @@ def change_password_view(request: Request, user_id):
         response.text = json.dumps(response_data)
 
     return response
-
-
-def add_cinema_view():
-    pass
