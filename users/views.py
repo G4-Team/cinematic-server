@@ -194,3 +194,7 @@ def change_password_view(request: Request, user_id):
         response.text = json.dumps(response_data)
 
     return response
+
+
+def add_cinema_view():
+    pass

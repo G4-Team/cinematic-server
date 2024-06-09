@@ -4,6 +4,7 @@ from users.views import (
     login_view,
     profile_view,
     register_user_view,
+    add_cinema_view,
 )
 
 app_name = "users"
@@ -14,4 +15,5 @@ users_urls = {
     "profile/{user_id}/": profile_view,
     "change-profile/{user_id}/": change_profile_view,
     "change-password/{user_id}/": change_password_view,
+    "add-cinema/": add_cinema_view,
 }
