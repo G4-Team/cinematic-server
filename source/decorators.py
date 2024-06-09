@@ -38,7 +38,7 @@ def allowed_methods(methods: list):
             if args[0].method in methods:
                 return view(*args, **kwargs)
             else:
-                return WSGIHandler.response_method_not_allowed(*args, **kwargs)
+                return WSGIHandler.response_method_not_allowed(*args)
 
         return wrapper
 
