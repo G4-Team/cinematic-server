@@ -1,3 +1,5 @@
+import re
+
 from bank.models import Bank, BankAccount
 from users.models import User
 
@@ -12,8 +14,12 @@ class CardSerializer:
 
     def validate(self):
         if self.data:
-            pass
-        pass
+            expiration_date = self.data["expiration_date"]
+            if not re.match(r"[0-9]{2}-[0-9]{2}", expiration_date):
+                raise ValueError("expiration date is invalid")
+            card_number = self.data["card_number"]
+            if not re.match(r"[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}", card_number):
+                raise ValueError("card number is invalid")
 
     @property
     def serialized_data(self) -> dict:
@@ -21,8 +27,9 @@ class CardSerializer:
             card = {
                 "id": self.instance.id,
                 "bank_name": self.instance.bank.name,
+                "card_number": self.instance.card_number,
                 "cvv2": self.instance.cvv2,
-                "balance": self.instance.balance,
+                "expiration_date": self.instance.expiration_date,
             }
             return card
         else:

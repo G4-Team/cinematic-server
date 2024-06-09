@@ -17,12 +17,21 @@ def get_or_create_bank(name: str) -> Bank:
     return bank
 
 
-def add_card(*, user: User, bank_name: str, cvv2: str, password: str):
+def add_card(
+    *,
+    user: User,
+    bank_name: str,
+    card_number: str,
+    cvv2: str,
+    expiration_date: str,
+    password: str
+):
     bank = get_or_create_bank(name=bank_name)
     with Session(DatabaseConnection.engin) as session:
         card = BankAccount(
-            balance=1000,
+            card_number=card_number,
             cvv2=cvv2,
+            expiration_date=expiration_date,
             password=password,
             user=user,
             bank=bank,

@@ -16,13 +16,16 @@ def add_card_view(request: Request, user_id):
     response = JsonResponse()
 
     data = json.loads(request.body)
-
+    serializer = CardSerializer(data=data)
     try:
         user = get_user(id=int(user_id))
+        serializer.validate()
         services.add_card(
             user=user,
             bank_name=data["bank_name"],
+            card_number=data["card_number"],
             cvv2=data["cvv2"],
+            expiration_date=data["expiration_date"],
             password=data["password"],
         )
 

@@ -28,10 +28,10 @@ class BankAccount(Base):
         primary_key=True,
         autoincrement=True,
     )
-    balance = db.Column(
-        db.Float,
-        default=0,
+    card_number = db.Column(
+        db.String(19),
         nullable=False,
+        unique=True,
     )
     cvv2 = db.Column(
         db.String(255),
