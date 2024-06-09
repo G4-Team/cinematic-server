@@ -41,10 +41,22 @@ class BankAccount(Base):
         db.String(255),
         nullable=False,
     )
-    user_id = db.orm.mapped_column(db.ForeignKey("users.id"), nullable=True)
-    user = db.orm.relationship("User", back_populates="bank_account")
-    bank_id = db.orm.mapped_column(db.ForeignKey("banks.id"), nullable=True)
-    bank = db.orm.relationship("Bank", back_populates="account")
+    user_id = db.orm.mapped_column(
+        db.ForeignKey("users.id"),
+        nullable=False,
+    )
+    user = db.orm.relationship(
+        "User",
+        back_populates="bank_account",
+    )
+    bank_id = db.orm.mapped_column(
+        db.ForeignKey("banks.id"),
+        nullable=False,
+    )
+    bank = db.orm.relationship(
+        "Bank",
+        back_populates="account",
+    )
 
 
 class Wallet(Base):
@@ -59,5 +71,11 @@ class Wallet(Base):
         default=0,
         nullable=False,
     )
-    user_id = db.orm.mapped_column(db.ForeignKey("users.id"), nullable=True)
-    user = db.orm.relationship("User", back_populates="wallet")
+    user_id = db.orm.mapped_column(
+        db.ForeignKey("users.id"),
+        nullable=False,
+    )
+    user = db.orm.relationship(
+        "User",
+        back_populates="wallet",
+    )
