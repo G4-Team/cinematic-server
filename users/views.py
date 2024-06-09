@@ -3,7 +3,7 @@ import json
 
 from webob import Request
 
-from source.decorators import admin_requirement, allowed_methods, auth_requirement
+from source.decorators import allowed_methods, auth_requirement, owner_requirement
 from source.response import JsonResponse
 from users import selectors, services
 from users.serializers import UserSerializer
@@ -44,12 +44,13 @@ def register_user_view(request: Request) -> JsonResponse:
     return response
 
 
+@owner_requirement
 @auth_requirement
 @allowed_methods(["GET"])
-def profile_view(request: Request, id: str) -> JsonResponse:
+def profile_view(request: Request, user_id: str) -> JsonResponse:
     response = JsonResponse()
     try:
-        user = selectors.get_user(id=int(id))
+        user = selectors.get_user(id=int(user_id))
         if user is None:
             response.status = 404
             response_data = {
@@ -118,12 +119,78 @@ def login_view(request: Request) -> JsonResponse:
     return response
 
 
-@allowed_methods(["GET"])
+@owner_requirement
 @auth_requirement
-def is_auth_view(request: Request) -> JsonResponse:
+@allowed_methods(["PUT"])
+def change_profile_view(request: Request, user_id):
     response = JsonResponse()
-    response_data = {
-        "message": "Hello my dear :)",
-    }
-    response.text = json.dumps(response_data)
+    data = json.loads(request.body)
+    allowed_data = {}
+    if "username" in data:
+        allowed_data["username"] = data["username"]
+    if "email" in data:
+        allowed_data["email"] = data["email"]
+    if "phone" in data:
+        allowed_data["phone"] = data["phone"]
+    if "birthday" in data:
+        allowed_data["birthday"] = data["birthday"]
+
+    serializer = UserSerializer(data=allowed_data, partial=True)
+    try:
+        serializer.validate()
+        user = selectors.get_user(id=int(user_id))
+        services.update_user_info(user, **allowed_data)
+        response.status_code = 200
+        response_data = {
+            "message": "SUCCESSFUL: user updated successfully",
+        }
+        response.text = json.dumps(response_data)
+    except Exception as e:
+        response.status_code = 400
+        response_data = {
+            "message": f"ERROR: {str(e)}",
+        }
+        response.text = json.dumps(response_data)
+
+    return response
+
+
+@owner_requirement
+@auth_requirement
+@allowed_methods(["PUT"])
+def change_password_view(request: Request, user_id):
+    response = JsonResponse()
+    data = json.loads(request.body)
+    allowed_data = {}
+    try:
+        allowed_data["password"] = data["password"]
+        serlializer = UserSerializer(data=allowed_data, partial=True)
+        serlializer.validate()
+
+        user = selectors.get_user(id=int(user_id))
+
+        if user.password != data["old_password"]:
+            raise ValueError("incorrect old password")
+        if data["password"] != data["confirm_password"]:
+            raise ValueError("new password and confirm new password doesn't match")
+
+        services.update_user_info(user, **allowed_data)
+        response.status_code = 200
+        response_data = {
+            "message": "SUCCESSFUL: password updated successfully",
+        }
+        response.text = json.dumps(response_data)
+    except KeyError as e:
+        response.status_code = 400
+        response_data = {
+            "message": f"ERROR: please send {str(e.args)}",
+        }
+        response.text = json.dumps(response_data)
+    except Exception as e:
+        response.status_code = 400
+        response_data = {
+            "message": f"ERROR: {str(e)}",
+        }
+        response.text = json.dumps(response_data)
+
     return response
