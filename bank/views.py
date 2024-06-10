@@ -200,5 +200,69 @@ def withdrawal_view(request: Request, user_id, card_id):
     return response
 
 
-def wire_transfer_view(request: Request, user_id, card_id):
-    pass
+@owner_requirement
+@auth_requirement
+@allowed_methods(["POST"])
+def wire_transfer_view(request: Request, user_id, sending_card_id):
+    response = JsonResponse()
+
+    f = open("./logs/transaction.log", "a")
+    f.write(f"\n\n----- new *wire transfer* transaction ----- {datetime.now()}\n\n")
+    f.write(f"url: {request.path}\n")
+    f.write(f"user_id: {user_id} - card_id: {sending_card_id}\n")
+
+    try:
+        data = json.loads(request.body)
+        f.write(f"data: {data}\n")
+        sending_card = selectors.filter_cards(
+            card_number=data["sending_card_number"],
+            cvv2=data["cvv2"],
+            expiration_date=data["expiration_date"],
+            password=data["password"],
+        ).first()
+
+        if sending_card is None:
+            raise ValueError("card invalid")
+
+        if int(user_id) != sending_card.id:
+            raise PermissionError("you are not owner of this card")
+
+        receiving_card = selectors.filter_cards(
+            card_number=data["receiving_card_number"],
+        ).first()
+
+        if receiving_card is None:
+            raise ValueError("card invalid")
+
+        services.wire_transfer(
+            int(sending_card_id), receiving_card.id, amount=data["amount"]
+        )
+
+        response.status_code = 200
+        response_data = {
+            "message": "SUCCESSFUL: transaction successful",
+        }
+    except KeyError as e:
+        response.status_code = 400
+        response_data = {
+            "message": f"ERROR: please send {str(e.args)}",
+        }
+    except PermissionError as e:
+        response.status_code = 403
+        response_data = {
+            "message": f"ERROR: {str(e)}",
+        }
+
+    except Exception as e:
+        response.status_code = 400
+        response_data = {
+            "message": f"ERROR: {str(e)}",
+        }
+
+    f.write(f"-> response status code: {response.status_code}\n")
+    f.write(f'-> response content: {response_data["message"]}\n')
+    f.write(f"\n----- end of transaction ----- {datetime.now()}\n\n")
+    f.close()
+
+    response.text = json.dumps(response_data)
+    return response

@@ -1,6 +1,7 @@
 import re
 
 from bank.models import Bank, BankAccount
+from bank.selectors import filter_cards
 from users.models import User
 
 
@@ -14,6 +15,9 @@ class CardSerializer:
 
     def validate(self):
         if self.data:
+            card_number = self.data["card_number"]
+            if filter_cards(card_number=card_number).first() is not None:
+                raise ValueError("card number -> this card number already exists")
             expiration_date = self.data["expiration_date"]
             if not re.match(r"[0-9]{2}-[0-9]{2}", expiration_date):
                 raise ValueError("expiration date is invalid")
