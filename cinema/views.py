@@ -4,10 +4,13 @@ import json
 from webob import Request, Response
 
 from cinema import selectors, services
-from source.decorators import allowed_methods, auth_requirement, owner_requirement
+from source.decorators import allowed_methods, auth_requirement, admin_requirement
 from source.response import JsonResponse
-from cinema.serializers import CinemaSerializer
+from cinema.serializers import CinemaSerializer, ShowtimeSerializer
 
+
+@admin_requirement
+@auth_requirement
 @allowed_methods(["POST"])
 def add_cinema_view(request: Request) -> JsonResponse:
     response = JsonResponse()
@@ -41,3 +44,9 @@ def add_cinema_view(request: Request) -> JsonResponse:
         response.text = json.dumps(response_data)
 
     return response
+
+
+def add_showtime_view(request: Request) -> JsonResponse:
+    response = JsonResponse()
+    data = json.loads(request.body)
+    serializer = ShowtimeSerializer(data=data)
