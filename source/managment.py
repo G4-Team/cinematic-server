@@ -44,6 +44,8 @@ class ManagementUtility:
             ManagementUtility.startapp(name=name)
         elif args.command == "migrations":
             ManagementUtility.migrations()
+        elif args.command == "createsuperuser":
+            ManagementUtility.createsuperuser()
         else:
             parser.print_help()
 
@@ -126,3 +128,29 @@ class ManagementUtility:
     @classmethod
     def createsuperuser(cls):
         print("Create a super user ...")
+        username = input("username: ")
+        email = input("email: ")
+        password = input("password: ")
+        birthday = input("birthday: ")
+
+        from sqlalchemy.orm import Session
+
+        from bank.models import BankAccount
+        from cinema.models import Showtime
+        from movie.models import MovieReview
+        from source.database import DatabaseConnection
+        from users.models import User
+
+        DatabaseConnection.create_engin()
+        with Session(DatabaseConnection.engin) as session:
+            user = User(
+                username=username,
+                email=email,
+                password=password,
+                birthday=birthday,
+                wallet=0,
+                is_admin=True,
+            )
+            session.add(user)
+            session.commit()
+        print("Super user created successfully.")
