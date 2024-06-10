@@ -96,6 +96,7 @@ def login_view(request: Request) -> JsonResponse:
         response.set_cookie(name="jwt", value=token, httponly=True)
         response_data = {
             "message": "SUCCESSFUL: user logged in",
+            "user_id": user.id,
         }
         response.text = json.dumps(response_data)
 
