@@ -16,13 +16,9 @@ def add_user(
             phone=phone,
             password=password,
             birthday=birthday,
-        )
-        wallet = Wallet(
-            balance=0,
-            user=user,
+            wallet=0,
         )
         session.add(user)
-        session.add(wallet)
         session.commit()
 
 

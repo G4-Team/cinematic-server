@@ -29,7 +29,9 @@ class UserSerializer:
                 if len(username) > 100:
                     raise ValueError("username -> username must be less than 100 char")
                 if any(not letter.isalnum() for letter in username):
-                    raise ValueError("username -> username must contain only alphanumeric chars")
+                    raise ValueError(
+                        "username -> username must contain only alphanumeric chars"
+                    )
                 if filter_users(username=username).first() is not None:
                     raise ValueError("username -> this username already exists")
 
@@ -78,7 +80,7 @@ class UserSerializer:
                 "birthday": str(self.instance.birthday),
                 "last_login": str(self.instance.created_at),
                 "created_at": str(self.instance.created_at),
-                "wallet": self.instance.wallet.balance,
+                "wallet": self.instance.wallet,
             }
             return user
         else:
