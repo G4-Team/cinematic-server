@@ -108,6 +108,7 @@ def add_comment_movie_review_view(request: Request, user_id, review_id) -> JsonR
     return response
 
 
+@allowed_methods(["GET"])
 def list_movie_comments_view(request: Request, movie_id) -> JsonResponse:
     response = JsonResponse()
     try:
