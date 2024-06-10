@@ -1,7 +1,6 @@
 from sqlalchemy import update
 from sqlalchemy.orm import Session
 
-from bank.models import Wallet
 from source.database import DatabaseConnection
 from users.models import User
 
