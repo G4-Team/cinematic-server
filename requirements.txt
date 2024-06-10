@@ -1,7 +1,7 @@
 gunicorn==22.0.0 # https://github.com/benoitc/gunicorn
 webob==1.8.7 # https://github.com/Pylons/webob
 parse==1.20.1 # https://github.com/r1chardj0n3s/parse
-python-environ==1.0
+python-environ==0.4.54
 mysql-connector-python==8.4.0
 sqlalchemy==2.0.30 # https://github.com/sqlalchemy/sqlalchemy
 pyjwt==2.8.0 # https://github.com/jpadilla/pyjwt

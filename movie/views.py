@@ -127,3 +127,4 @@ def list_movie_comments_view(request: Request, movie_id) -> JsonResponse:
     response.text = json.dumps(response_data)
 
     return response
+

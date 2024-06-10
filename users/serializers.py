@@ -28,12 +28,8 @@ class UserSerializer:
             if username:
                 if len(username) > 100:
                     raise ValueError("username -> username must be less than 100 char")
-                if not any(letter.isupper() for letter in username):
-                    raise ValueError("username -> username must contain uppercase char")
-                if not any(letter.islower() for letter in username):
-                    raise ValueError("username -> username must contain lowercase char")
-                if not any(letter.isdigit() for letter in username):
-                    raise ValueError("username -> username must contain numbers")
+                if any(not letter.isalnum() for letter in username):
+                    raise ValueError("username -> username must contain only alphanumeric chars")
                 if filter_users(username=username).first() is not None:
                     raise ValueError("username -> this username already exists")
 

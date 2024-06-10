@@ -63,3 +63,4 @@ def add_comment_movie_review(*, text: str, user_id: int, review_id: int):
 
         session.add(review)
         session.commit()
+

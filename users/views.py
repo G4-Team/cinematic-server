@@ -20,6 +20,7 @@ def register_user_view(request: Request) -> JsonResponse:
         services.add_user(
             username=data["username"],
             email=data["email"],
+            phone=data.get("phone", None),
             password=data["password"],
             birthday=data["birthday"],
         )

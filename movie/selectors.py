@@ -47,3 +47,4 @@ def list_commets(movie_id: int) -> dict:
             if comment.replies:
                 all_comments_dict[comment.id]["replies"] = dfs_comments_to_dict(comment)
         return all_comments_dict
+
