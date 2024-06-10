@@ -34,13 +34,20 @@ def add_card_view(request: Request, user_id):
         response_data = {
             "message": "SUCCESSFUL: card created successfully",
         }
-        response.text = json.dumps(response_data)
+
     except KeyError as e:
         response.status_code = 400
         response_data = {
             "message": f"ERROR: please send {str(e.args)}",
         }
-        response.text = json.dumps(response_data)
+
+    except Exception as e:
+        response.status_code = 400
+        response_data = {
+            "message": f"ERROR: {str(e)}",
+        }
+
+    response.text = json.dumps(response_data)
 
     return response
 
