@@ -62,3 +62,7 @@ class User(Base):
         "BankAccount",
         back_populates="user",
     )
+    movie_reviews = db.orm.relationship(
+        "MovieReview",
+        back_populates="user",
+    )

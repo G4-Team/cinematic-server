@@ -106,12 +106,14 @@ def login_view(request: Request) -> JsonResponse:
         }
         response.text = json.dumps(response_data)
     except ValueError as e:
+        response.status_code = 400
         response_data = {
             "message": f"ERROR: {str(e)}",
         }
         response.text = json.dumps(response_data)
 
     except Exception as e:
+        response.status_code = 400
         response_data = {
             "message": f"ERROR: {str(e)}",
         }
