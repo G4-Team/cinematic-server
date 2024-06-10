@@ -48,11 +48,7 @@ class User(Base):
         db.DateTime,
         nullable=True,
     )
-    seat = db.orm.relationship(
-        "Seat",
-        uselist=False,
-        back_populates="user",
-    )
+
     wallet = db.Column(
         db.Float,
         default=0,

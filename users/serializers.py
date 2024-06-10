@@ -17,12 +17,14 @@ class UserSerializer:
                 email = self.data["email"]
                 phone = self.data.get("phone", None)
                 password = self.data["password"]
+                confirm_password = self.data["confirm_password"]
                 birthday = self.data["birthday"]
             else:
                 username = self.data.get("username", None)
                 email = self.data.get("email", None)
                 phone = self.data.get("phone", None)
                 password = self.data.get("password", None)
+                confirm_password = self.data.get("confirm_password", None)
                 birthday = self.data.get("birthday", None)
 
             if username:
@@ -61,6 +63,12 @@ class UserSerializer:
                 if not allowed_pattern.match(password):
                     raise ValueError(
                         "password -> password contains invalid characters. Only letters, numbers, and @#$& are allowed"
+                    )
+
+            if confirm_password:
+                if confirm_password != password:
+                    raise ValueError(
+                        "canforim password -> password and it's confirm doesn't match"
                     )
 
             if birthday:
