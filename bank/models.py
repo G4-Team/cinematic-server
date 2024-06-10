@@ -45,6 +45,11 @@ class BankAccount(Base):
         db.String(255),
         nullable=False,
     )
+    balance = db.Column(
+        db.Float,
+        nullable=False,
+        default=0,
+    )
     user_id = db.orm.mapped_column(
         db.ForeignKey("users.id"),
         nullable=False,

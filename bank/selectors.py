@@ -18,3 +18,17 @@ def get_cards(user_id: int) -> Query:
         for row in session.execute(stmt):
             result.append(row[0])
     return result
+
+
+def get_card(card_id: int) -> BankAccount:
+    with Session(DatabaseConnection.engin) as session:
+        query = session.query(BankAccount)
+        card = query.get(id)
+    return card
+
+
+def filter_cards(**kwargs) -> Query:
+    with Session(DatabaseConnection.engin) as session:
+        query = session.query(BankAccount)
+        cards = query.filter_by(**kwargs)
+    return cards
