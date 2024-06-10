@@ -24,7 +24,8 @@ def add_card(
     card_number: str,
     cvv2: str,
     expiration_date: str,
-    password: str
+    password: str,
+    balance: float,
 ):
     bank = get_or_create_bank(name=bank_name)
     with Session(DatabaseConnection.engin) as session:
@@ -33,6 +34,7 @@ def add_card(
             cvv2=cvv2,
             expiration_date=expiration_date,
             password=password,
+            balance=balance,
             user=user,
             bank=bank,
         )
