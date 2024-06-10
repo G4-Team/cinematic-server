@@ -106,3 +106,23 @@ def add_comment_movie_review_view(request: Request, user_id, review_id) -> JsonR
 
     response.text = json.dumps(response_data)
     return response
+
+
+def list_movie_comments_view(request: Request, movie_id) -> JsonResponse:
+    response = JsonResponse()
+    try:
+        response.status_code = 200
+        response_data = {
+            "message": "SUCCESSFUL: movie comments retrived successfully",
+            "movie_comments": selectors.list_commets(int(movie_id)),
+        }
+
+    except Exception as e:
+        response.status_code = 400
+        response_data = {
+            "message": f"ERROR: {str(e)}",
+        }
+
+    response.text = json.dumps(response_data)
+
+    return response
