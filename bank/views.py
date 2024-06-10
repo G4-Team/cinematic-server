@@ -28,6 +28,7 @@ def add_card_view(request: Request, user_id):
             cvv2=data["cvv2"],
             expiration_date=data["expiration_date"],
             password=data["password"],
+            balance=data["balance"],
         )
 
         response.status_code = 201
