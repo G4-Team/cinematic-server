@@ -39,3 +39,33 @@ def add_card(
 
         session.add(card)
         session.commit()
+
+
+def deposit(card_id: int, amount: float):
+    with Session(DatabaseConnection.engin) as session:
+        account = (
+            session.query(BankAccount).filter_by(id=card_id).with_for_update().one()
+        )
+        account.balance += amount
+        session.commit()
+
+
+def withdrawal(card_id: int, amount: float):
+    session = Session()
+    try:
+        # Start a transaction
+        account = (
+            session.query(BankAccount).filter_by(id=card_id).with_for_update().one()
+        )
+
+        if account.balance >= amount:
+            account.balance -= amount
+        else:
+            raise ValueError("insufficient funds")
+
+        session.commit()
+    except Exception as e:
+        session.rollback()
+        raise e
+    finally:
+        session.close()
