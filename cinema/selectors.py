@@ -32,3 +32,17 @@ def get_movie_showtimes(movie_id: int) -> Query:
         for row in session.execute(stmt):
             result.append(row[0])
     return result
+
+def get_cinema_showtimes(cinema_id: int) -> Query:
+    stmt = (
+        select(Showtime, Cinema, Movie)
+        .options(selectinload(Showtime.cinema, Showtime.movie))
+        .where(Showtime.cinema_id == cinema_id)
+        .join(Cinema)
+        .join(Moive)
+    )
+    result = []
+    with Session(DatabaseConnection.engin) as session:
+        for row in session.execute(stmt):
+            result.append(row[0])
+    return result
