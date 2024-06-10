@@ -53,10 +53,10 @@ class User(Base):
         uselist=False,
         back_populates="user",
     )
-    wallet = db.orm.relationship(
-        "Wallet",
-        uselist=False,
-        back_populates="user",
+    wallet = db.Column(
+        db.Float,
+        default=0,
+        nullable=False,
     )
     bank_account = db.orm.relationship(
         "BankAccount",
@@ -65,4 +65,8 @@ class User(Base):
     movie_reviews = db.orm.relationship(
         "MovieReview",
         back_populates="user",
+    )
+    reservations = db.orm.relationship(
+        "ShowtimeSeats",
+        back_populates="reserved_by",
     )

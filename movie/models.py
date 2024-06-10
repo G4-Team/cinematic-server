@@ -22,13 +22,13 @@ class Movie(Base):
         default=0,
     )
 
-    # show_times = db.orm.relationship(
-    #     "Showtime",
-    #     back_populates="movie",
-    # )
-
     movie_reviewes = db.orm.relationship(
         "MovieReview",
+        back_populates="movie",
+    )
+
+    show_times = db.orm.relationship(
+        "Showtime",
         back_populates="movie",
     )
 
@@ -76,8 +76,3 @@ class MovieReview(Base):
         remote_side=[id],
         backref="replies",
     )
-    # replies = db.orm.relationship(
-    #     "MovieReview",
-    #     back_populates="reply_to",
-    # )
-

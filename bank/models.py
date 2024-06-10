@@ -61,25 +61,3 @@ class BankAccount(Base):
         "Bank",
         back_populates="account",
     )
-
-
-class Wallet(Base):
-    __tablename__ = "wallets"
-    id = db.Column(
-        db.Integer,
-        primary_key=True,
-        autoincrement=True,
-    )
-    balance = db.Column(
-        db.Float,
-        default=0,
-        nullable=False,
-    )
-    user_id = db.orm.mapped_column(
-        db.ForeignKey("users.id"),
-        nullable=False,
-    )
-    user = db.orm.relationship(
-        "User",
-        back_populates="wallet",
-    )
