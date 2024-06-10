@@ -51,7 +51,7 @@ def deposit(card_id: int, amount: float):
 
 
 def withdrawal(card_id: int, amount: float):
-    session = Session()
+    session = Session(DatabaseConnection.engin)
     try:
         # Start a transaction
         account = (
