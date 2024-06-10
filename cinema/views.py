@@ -46,7 +46,69 @@ def add_cinema_view(request: Request) -> JsonResponse:
     return response
 
 
+@admin_requirement
+@auth_requirement
+@allowed_methods(["POST"])
 def add_showtime_view(request: Request) -> JsonResponse:
+    response = JsonResponse()
+    data = json.loads(request.body)
+    serializer = ShowtimeSerializer(data=data)
+    try:
+        serializer.validate()
+        services.add_showtime(
+            show_time=data['show_time'],
+            cinema_id=data['cinema_id'],
+            movie_id=data['movie_id'],
+        )
+        response.status_code = 201
+        response_data = {
+            "message": "SUCCESSFUL: showtime created successfully",
+        }
+        response.text = json.dumps(response_data)
+    except KeyError as e:
+        response.status_code = 400
+        response_data = {
+            "message": f"ERROR: please send {str(e.args)}",
+        }
+        response.text = json.dumps(response_data)
+    except Exception as e:
+        response.status_code = 400
+        response_data = {
+            "message": f"ERROR: {str(e)}",
+        }
+        response.text = json.dumps(response_data)
+
+    return response
+
+
+
+def list_movie_showtimes_view(request: Request, movie_id) -> JsonResponse:
+    response = JsonResponse()
+
+    try:
+        showtimes = selectors.get_movie_showtimes(movie_id=int(movie_id))
+        response_data = {
+            "message": "SUCCESSFUL: showtimes retrived successfully",
+            "showtimes": {},
+        }
+        for index, showtime in enumerate(showtimes):
+            response_data["showtimes"][f"showtime{index}"] = ShowtimeSerializer(
+                instance=showtime
+            ).serialized_data
+        response.status_code = 200
+
+        response.text = json.dumps(response_data)
+    except Exception as e:
+        response.status_code = 400
+        response_data = {
+            "message": f"ERROR: {str(e.args)}",
+        }
+        response.text = json.dumps(response_data)
+
+    return response
+
+
+def list_cinema_showtimes_view(request: Request, cinema_id) -> JsonResponse:
     response = JsonResponse()
     data = json.loads(request.body)
     serializer = ShowtimeSerializer(data=data)
