@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from cinema.models import Cinema, Showtime
+from cinema.models import Cinema, Showtime, ShowtimeSeats
 from cinema.selectors import get_cinema
 from movie.services import get_or_create_movie
 from source.database import DatabaseConnection
@@ -24,7 +24,6 @@ def add_cinema(
         )
         session.add(cinema)
         session.commit()
-    return cinema
 
 
 def add_showtime(
@@ -41,6 +40,15 @@ def add_showtime(
             show_time=time,
             cinema=cinema,
             movie=movie,
+            capacity=cinema.capacity,
         )
+        for col in range(cinema.number_of_col):
+            for row in range(cinema.number_of_row):
+                seat = ShowtimeSeats(
+                    row=row,
+                    col=col,
+                    showtime=showtime,
+                )
+                session.add(seat)
         session.add(showtime)
         session.commit()

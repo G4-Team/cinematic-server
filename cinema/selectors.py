@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload
@@ -7,6 +7,7 @@ from sqlalchemy.orm.query import Query
 from cinema.models import Cinema, Showtime, ShowtimeSeats
 from movie.models import Movie
 from source.database import DatabaseConnection
+from users.models import User
 
 
 def get_cinema(id: id) -> Cinema:
@@ -30,17 +31,24 @@ def filter_showtimes(**kwargs) -> Query:
     return showtimes
 
 
-def get_showtimes() -> list:
+def get_showtimes(user: User) -> list:
+    age = (datetime.datetime.now().date() - user.birthday).days / 365
+    print(age)
     stmt = (
         select(Showtime, Cinema, Movie)
-        .options(selectinload(Showtime.cinema, Showtime.movie))
-        .where(Showtime.show_time > datetime.now())
+        .options(selectinload(Showtime.cinema), selectinload(Showtime.movie))
+        .where(
+            Showtime.show_time > datetime.datetime.now(),
+            Movie.age_rating <= age,
+        )
         .join(Movie)
         .join(Cinema)
     )
     result = []
+
     with Session(DatabaseConnection.engin) as session:
-        for row in session.execute(stmt):
+        print(session.execute(stmt).all())
+        for row in session.execute(stmt).all():
             result.append(row[0])
     return result
 

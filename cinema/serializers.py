@@ -67,9 +67,16 @@ class ShowtimeSerializer:
         if self.instance is not None:
             showtime = {
                 "id": self.instance.id,
-                "show_time": str(self.instance.show_time),
-                "cinema_id": self.instance.cinema_id,
-                "movie_id": self.instance.movie_id,
+                "time": str(self.instance.show_time),
+                "cinema": {
+                    "name": self.instance.cinema.name,
+                    "ticket_price": self.instance.cinema.ticket_price,
+                },
+                "movie": {
+                    "name": self.instance.movie.name,
+                    "age-rating": self.instance.movie.age_rating,
+                },
+                "capacity": self.instance.capacity,
             }
             return showtime
         else:
