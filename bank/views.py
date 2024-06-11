@@ -225,7 +225,7 @@ def wire_transfer_view(request: Request, user_id, sending_card_id):
         if sending_card is None:
             raise ValueError("card invalid")
 
-        if int(user_id) != sending_card.id:
+        if int(user_id) != sending_card.user_id:
             raise PermissionError("you are not owner of this card")
 
         receiving_card = selectors.filter_cards(

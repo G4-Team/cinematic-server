@@ -18,6 +18,11 @@ class Movie(Base):
         unique=True,
         nullable=False,
     )
+    age_rating = db.Column(
+        db.Integer,
+        nullable=True,
+        default=0,
+    )
     avg_rates = db.Column(
         db.Float,
         nullable=False,

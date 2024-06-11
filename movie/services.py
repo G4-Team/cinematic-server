@@ -64,3 +64,14 @@ def add_comment_movie_review(*, text: str, user_id: int, review_id: int):
         session.add(review)
         session.commit()
 
+
+def get_or_create_movie(name: str, age_rating: int) -> Movie:
+    with Session(DatabaseConnection.engin) as session:
+        movie = session.query(Movie).filter_by(name=name, age_rating=age_rating).first()
+
+        if movie is None:
+            movie = Movie(name=name, age_rating=age_rating)
+            session.add(movie)
+            session.commit()
+
+    return movie
