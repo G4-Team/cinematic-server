@@ -40,6 +40,7 @@ def get_showtimes(user: User) -> list:
         .where(
             Showtime.show_time > datetime.datetime.now(),
             Movie.age_rating <= age,
+            Showtime.capacity > 0
         )
         .join(Movie)
         .join(Cinema)
