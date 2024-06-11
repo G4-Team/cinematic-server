@@ -140,13 +140,14 @@ class ManagementUtility:
         from movie.models import MovieReview
         from source.database import DatabaseConnection
         from users.models import User
+        from users.utils import hash_password
 
         DatabaseConnection.create_engin()
         with Session(DatabaseConnection.engin) as session:
             user = User(
                 username=username,
                 email=email,
-                password=password,
+                password=hash_password(password),
                 birthday=birthday,
                 wallet=0,
                 is_admin=True,
