@@ -24,6 +24,7 @@ class Showtime(Base):
 
     id = db.Column(db.BigInteger, primary_key=True, autoincrement=True)
     show_time = db.Column(db.DateTime, nullable=False)
+    capacity = db.Column(db.Integer, nullable=False)
     seats = db.orm.relationship("ShowtimeSeats", back_populates="showtime")
     cinema_id = db.orm.mapped_column(db.ForeignKey("cinemas.id"), nullable=False)
     cinema = db.orm.relationship("Cinema", back_populates="show_times")
@@ -38,7 +39,7 @@ class ShowtimeSeats(Base):
     showtime_id = db.orm.mapped_column(db.ForeignKey("showtimes.id"), nullable=False)
     showtime = db.orm.relationship("Showtime", back_populates="seats")
     is_reserved = db.Column(db.Boolean, nullable=False, default=False)
-    reserved_by_id = db.orm.mapped_column(db.ForeignKey("users.id"), nullable=False)
+    reserved_by_id = db.orm.mapped_column(db.ForeignKey("users.id"), nullable=True)
     reserved_by = db.orm.relationship("User", back_populates="reservations")
     row = db.Column(db.Integer, nullable=False)
     col = db.Column(db.Integer, nullable=False)
