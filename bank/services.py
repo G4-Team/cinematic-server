@@ -96,3 +96,26 @@ def wire_transfer(o_card_id: int, d_card_id: int, amount: float):
         raise e
     finally:
         session.close()
+
+
+def charge_wallet(user_id, card_id: int, amount: float):
+    session = Session(DatabaseConnection.engin)
+    try:
+        # Start a transaction
+        account = (
+            session.query(BankAccount).filter_by(id=card_id).with_for_update().one()
+        )
+        user = session.query(User).filter_by(id=user_id).with_for_update().one()
+
+        if account.balance >= amount:
+            account.balance -= amount
+            user.wallet += amount
+        else:
+            raise ValueError("insufficient funds")
+
+        session.commit()
+    except Exception as e:
+        session.rollback()
+        raise e
+    finally:
+        session.close()
