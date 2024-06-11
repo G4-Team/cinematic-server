@@ -1,4 +1,5 @@
 from users.views import (
+    buy_subscription_view,
     change_password_view,
     change_profile_view,
     charge_wallet_view,
@@ -16,4 +17,5 @@ users_urls = {
     "change-profile/{user_id}/": change_profile_view,
     "change-password/{user_id}/": change_password_view,
     "charge-wallet/{user_id}/": charge_wallet_view,
+    "buy-subscription/{user_id}/": buy_subscription_view,
 }

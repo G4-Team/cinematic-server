@@ -261,3 +261,32 @@ def charge_wallet_view(request: Request, user_id):
 
     response.text = json.dumps(response_data)
     return response
+
+
+@owner_requirement
+@auth_requirement
+@allowed_methods(["PUT"])
+def buy_subscription_view(request: Request, user_id):
+    response = JsonResponse()
+    try:
+        data = json.loads(request.body)
+        services.buy_subscription(
+            int(user_id), type_subscription=data["type_subscription"]
+        )
+        response.status_code = 200
+        response_data = {
+            "message": "SUCCESSFUL: transaction successful",
+        }
+    except KeyError:
+        response.status_code = 400
+        response_data = {
+            "message": f"ERROR: please send a valid subscription",
+        }
+    except Exception as e:
+        response.status_code = 400
+        response_data = {
+            "message": f"ERROR: {str(e)}",
+        }
+
+    response.text = json.dumps(response_data)
+    return response
