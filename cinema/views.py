@@ -1,11 +1,16 @@
 import datetime
 import json
 
-from webob import Request, Response
+from webob import Request
 
 from cinema import selectors, services
 from cinema.serializers import CinemaSerializer, ShowtimeSerializer
-from source.decorators import admin_requirement, allowed_methods, auth_requirement
+from source.decorators import (
+    admin_requirement,
+    allowed_methods,
+    auth_requirement,
+    owner_requirement,
+)
 from source.response import JsonResponse
 
 
@@ -87,9 +92,10 @@ def add_showtime_view(request: Request) -> JsonResponse:
     return response
 
 
+@owner_requirement
 @auth_requirement
 @allowed_methods(["GET"])
-def list_showtimes_view(request: Request) -> JsonResponse:
+def list_showtimes_view(request: Request, user_id: int) -> JsonResponse:
     response = JsonResponse()
 
     try:
