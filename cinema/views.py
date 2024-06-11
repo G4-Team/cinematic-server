@@ -174,3 +174,27 @@ def reserve_showtime_view(request: Request, user_id, showtime_seat_id) -> JsonRe
 
     response.text = json.dumps(response_data)
     return response
+
+
+@owner_requirement
+@auth_requirement
+@allowed_methods(["DELETE"])
+def cancel_showtime_view(request: Request, user_id, showtime_seat_id) -> JsonResponse:
+    response = JsonResponse()
+
+    try:
+        services.cancel_reserved_seat(
+            user_id=int(user_id), seat_id=int(showtime_seat_id)
+        )
+        response.status_code = 200
+        response_data = {
+            "message": "SUCCESSFUL: showtime seat canceled successfully",
+        }
+    except Exception as e:
+        response.status_code = 400
+        response_data = {
+            "message": f"ERROR: {str(e)}",
+        }
+
+    response.text = json.dumps(response_data)
+    return response

@@ -43,6 +43,7 @@ class ShowtimeSeats(Base):
     reserved_by = db.orm.relationship("User", back_populates="reservations")
     row = db.Column(db.Integer, nullable=False)
     col = db.Column(db.Integer, nullable=False)
+    money_spent = db.Column(db.Float, nullable=True)
 
 
 class SubscriptionType(enum.Enum):
