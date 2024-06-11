@@ -136,7 +136,7 @@ class ManagementUtility:
         from sqlalchemy.orm import Session
 
         from bank.models import BankAccount
-        from cinema.models import Showtime
+        from cinema.models import Showtimem, Subscription
         from movie.models import MovieReview
         from source.database import DatabaseConnection
         from users.models import User
@@ -152,6 +152,14 @@ class ManagementUtility:
                 wallet=0,
                 is_admin=True,
             )
+            s = Subscription(
+                type_subscription="bronze",
+                validity_duration=None,
+                price=0,
+                user=user,
+                credit=0,
+            )
             session.add(user)
+            session.add(s)
             session.commit()
         print("Super user created successfully.")
