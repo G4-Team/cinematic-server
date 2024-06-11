@@ -107,7 +107,7 @@ def deposit_view(request: Request, user_id, card_id):
         if card is None:
             raise ValueError("card invalid")
 
-        if int(user_id) != card.id:
+        if int(user_id) != card.user_id:
             raise PermissionError("you are not owner of this card")
 
         services.deposit(int(card_id), amount=data["amount"])
@@ -166,7 +166,7 @@ def withdrawal_view(request: Request, user_id, card_id):
         if card is None:
             raise ValueError("card invalid")
 
-        if int(user_id) != card.id:
+        if int(user_id) != card.user_id:
             raise PermissionError("you are not owner of this card")
 
         services.withdrawal(int(card_id), amount=data["amount"])
