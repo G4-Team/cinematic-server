@@ -93,6 +93,7 @@ class UserSerializer:
                     "type": str(self.instance.subscription.type_subscription.name),
                     "validity-duration": self.instance.subscription.validity_duration,
                     "created-at": str(self.instance.subscription.created_at),
+                    "credit-for-discount": self.instance.subscription.credit,
                     "price": self.instance.subscription.price,
                 },
             }

@@ -58,6 +58,12 @@ def buy_subscription(user_id: int, type_subscription: str):
                 price=TypeSubscription[type_subscription].value * 100,
                 user=user,
             )
+            if TypeSubscription[type_subscription].value == 3:
+                s.credit = 3
+            elif TypeSubscription[type_subscription].value == 6:
+                s.credit = 5
+            else:
+                s.credit = 0
 
         else:
             raise ValueError(

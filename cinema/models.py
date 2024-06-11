@@ -105,6 +105,10 @@ class Subscription(Base):
         db.Float,
         nullable=False,
     )
+    credit = db.Column(
+        db.SmallInteger,
+        nullable=False,
+    )
 
     created_at = db.Column(
         db.DateTime,
