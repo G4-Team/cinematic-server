@@ -13,9 +13,9 @@ URLS_DIR = BASE_DIR / "urls"
 
 APPS = [
     "users",
-    'cinema',
-    'movie',
-    'bank',
+    "cinema",
+    "movie",
+    "bank",
 ]
 
 
@@ -26,3 +26,4 @@ DATABASE_CONNECT_STR = (
 )
 
 JWT_SECRET = "TOP_SECRET_DONT_SEE"
+SALT_SECRET = "TOP_SECRET_DONT_SEE"

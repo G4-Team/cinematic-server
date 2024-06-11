@@ -9,7 +9,7 @@ from source.decorators import allowed_methods, auth_requirement, owner_requireme
 from source.response import JsonResponse
 from users import selectors, services
 from users.serializers import UserSerializer
-from users.utils import creat_jwt_token
+from users.utils import creat_jwt_token, hash_password
 
 
 @allowed_methods(["POST"])
@@ -23,7 +23,7 @@ def register_user_view(request: Request) -> JsonResponse:
             username=data["username"],
             email=data["email"],
             phone=data.get("phone", None),
-            password=data["password"],
+            password=hash_password(data["password"]),
             birthday=data["birthday"],
         )
         response.status_code = 201
@@ -89,7 +89,7 @@ def login_view(request: Request) -> JsonResponse:
         user = selectors.filter_users(username=data["username"]).first()
         if user is None:
             raise ValueError("invalid credentilas")
-        if user.password != data["password"]:
+        if user.password != hash_password(data["password"]):
             raise ValueError("invalid credentilas")
         services.update_user_info(user, last_login=datetime.datetime.now())
         token = creat_jwt_token(user_id=user.id)
@@ -175,11 +175,12 @@ def change_password_view(request: Request, user_id):
 
         user = selectors.get_user(id=int(user_id))
 
-        if user.password != data["old_password"]:
+        if user.password != hash_password(data["old_password"]):
             raise ValueError("incorrect old password")
         if data["password"] != data["confirm_password"]:
             raise ValueError("new password and confirm new password doesn't match")
 
+        allowed_data["password"] = hash_password(allowed_data["password"])
         services.update_user_info(user, **allowed_data)
         response.status_code = 200
         response_data = {
