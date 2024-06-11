@@ -223,7 +223,7 @@ def charge_wallet_view(request: Request, user_id):
             card_number=data["card_number"],
             cvv2=data["cvv2"],
             expiration_date=data["expiration_date"],
-            password=data["password"],
+            password=hash_password(data["password"]),
         ).first()
 
         if card is None:
