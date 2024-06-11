@@ -25,6 +25,7 @@ def add_user(
             validity_duration=None,
             price=0,
             user=user,
+            credit=0,
         )
         session.add(user)
         session.add(s)
