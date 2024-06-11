@@ -83,7 +83,7 @@ def add_showtime_view(request: Request) -> JsonResponse:
 
 @auth_requirement
 @allowed_methods(["GET"])
-def list_showtimes(request: Request) -> JsonResponse:
+def list_showtimes_view(request: Request) -> JsonResponse:
     response = JsonResponse()
 
     try:
