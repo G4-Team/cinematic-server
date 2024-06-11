@@ -81,7 +81,37 @@ def add_showtime_view(request: Request) -> JsonResponse:
     return response
 
 
+@auth_requirement
+@allowed_methods(["GET"])
+def list_showtimes(request: Request) -> JsonResponse:
+    response = JsonResponse()
 
+    try:
+        showtimes = selectors.get_showtimes()
+        response_data = {
+            "message": "SUCCESSFUL: showtimes retrived successfully",
+            "showtimes": {},
+        }
+        for index, showtime in enumerate(showtimes):
+            response_data["showtimes"][f"showtime{index}"] = ShowtimeSerializer(
+                instance=showtime
+            ).serialized_data
+        response.status_code = 200
+
+        response.text = json.dumps(response_data)
+    except Exception as e:
+        response.status_code = 400
+        response_data = {
+            "message": f"ERROR: {str(e.args)}",
+        }
+        response.text = json.dumps(response_data)
+
+    return response
+
+
+
+@auth_requirement
+@allowed_methods(["POST"])
 def list_movie_showtimes_view(request: Request, movie_id) -> JsonResponse:
     response = JsonResponse()
 
@@ -108,6 +138,8 @@ def list_movie_showtimes_view(request: Request, movie_id) -> JsonResponse:
     return response
 
 
+@auth_requirement
+@allowed_methods(["POST"])
 def list_cinema_showtimes_view(request: Request, cinema_id) -> JsonResponse:
     response = JsonResponse()
 
@@ -115,6 +147,34 @@ def list_cinema_showtimes_view(request: Request, cinema_id) -> JsonResponse:
         showtimes = selectors.get_cinema_showtimes(cinema_id=int(cinema_id))
         response_data = {
             "message": "SUCCESSFUL: showtimes retrived successfully",
+            "showtimes": {},
+        }
+        for index, showtime in enumerate(showtimes):
+            response_data["showtimes"][f"showtime{index}"] = ShowtimeSerializer(
+                instance=showtime
+            ).serialized_data
+        response.status_code = 200
+
+        response.text = json.dumps(response_data)
+    except Exception as e:
+        response.status_code = 400
+        response_data = {
+            "message": f"ERROR: {str(e.args)}",
+        }
+        response.text = json.dumps(response_data)
+
+    return response
+
+
+@auth_requirement
+@allowed_methods(["POST"])
+def list_showtime_seats(request: Request, showtime_id) -> JsonResponse:
+    response = JsonResponse()
+
+    try:
+        seats = selectors.get_showtime_seats(showtime_id=int(showtime_id))
+        response_data = {
+            "message": "SUCCESSFUL: seats retrived successfully",
             "showtimes": {},
         }
         for index, showtime in enumerate(showtimes):

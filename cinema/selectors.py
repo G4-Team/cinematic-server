@@ -2,8 +2,9 @@ from sqlalchemy import select
 from source.database import DatabaseConnection
 from sqlalchemy.orm import Session, selectinload
 from sqlalchemy.orm.query import Query
-from cinema.models import Cinema, Showtime
+from cinema.models import Cinema, Showtime, ShowtimeSeats
 from ..movie.models import Movie
+from datetime import datetime
 
 
 def get_cinema(id: id) -> Cinema:
@@ -19,7 +20,22 @@ def filter_cinemas(**kwargs) -> Query:
         cinemas = query.filter_by(**kwargs)
     return cinemas
 
-def get_movie_showtimes(movie_id: int) -> Query:
+
+def get_showtimes() -> list:
+    stmt = (
+        select(Showtime, Cinema, Movie)
+        .options(selectinload(Showtime.cinema, Showtime.movie))
+        .where(Showtime.show_time > datetime.now())
+        .join(Movie)
+        .join(Cinema)
+    )
+    result = []
+    with Session(DatabaseConnection.engin) as session:
+        for row in session.execute(stmt):
+            result.append(row[0])
+    return result
+
+def get_movie_showtimes(movie_id: int) -> list:
     stmt = (
         select(Showtime, Cinema, Movie)
         .options(selectinload(Showtime.cinema, Showtime.movie))
@@ -33,13 +49,24 @@ def get_movie_showtimes(movie_id: int) -> Query:
             result.append(row[0])
     return result
 
-def get_cinema_showtimes(cinema_id: int) -> Query:
+def get_cinema_showtimes(cinema_id: int) -> list:
     stmt = (
         select(Showtime, Cinema, Movie)
         .options(selectinload(Showtime.cinema, Showtime.movie))
         .where(Showtime.cinema_id == cinema_id)
+        .join(Movie)
         .join(Cinema)
-        .join(Moive)
+    )
+    result = []
+    with Session(DatabaseConnection.engin) as session:
+        for row in session.execute(stmt):
+            result.append(row[0])
+    return result
+
+def get_showtime_seats(showtime_id: int) -> list:
+    stmt = (
+        select(ShowtimeSeats)
+        .where(ShowtimeSeats.showtime_id == showtime_id)
     )
     result = []
     with Session(DatabaseConnection.engin) as session:
