@@ -99,6 +99,7 @@ def login_view(request: Request) -> JsonResponse:
         response_data = {
             "message": "SUCCESSFUL: user logged in",
             "user_id": user.id,
+            "is_admin": user.is_admin,
         }
         response.text = json.dumps(response_data)
 
