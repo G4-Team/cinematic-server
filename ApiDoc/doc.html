@@ -1032,6 +1032,7 @@ valid credential in cookies request
             "bank_name": "melli",
             "card_number": "6037-9971-5622-8877",
             "cvv2": "659",
+            "balance": float,
             "expiration_date": "05-10"
         },
         "card1": {
@@ -1039,6 +1040,7 @@ valid credential in cookies request
             "bank_name": "taavon",
             "card_number": "5029-9971-5622-8877",
             "cvv2": "385",
+            "balance": float,
             "expiration_date": "05-10"
         },   
     }
@@ -1663,6 +1665,164 @@ valid credential in cookies request
             </div>
         </div>
 
+        <div class="api">
+            <div class="menu">
+                <a href="#" class="code-line" onclick="toggleInfo(event, 'add-cinema')">
+                    <span class="method post">POST</span><span class="common-word4">cinema</span>/add-cinema/
+                    <span class="icon">▼</span>
+                </a>
+                <div id="add-cinema" class="info">
+                    <div class="row justify-content-center">
+                        <div class="col-12" style="border-bottom: 1px solid #a4a4a4;width: 95%;">
+                            <div class="row">
+                                <div class="col-8">
+                                    <p class="api-descriptions">add a new cinema.</p>
+                                    <ul>
+                                        <li>
+                                            decorator1: admin_requirement
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-4">
+                                    <div class="json-box">
+                                        <h2 class="json-title">Required Data</h2>
+                                        <pre><code class="js rounded">
+valid credential in cookies request
+&&
+{
+    "name": str,
+    "ticket_price": float,
+    "capacity": int,
+    "number_of_row": int,
+    "number_of_col": int,
+}
+                            </code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Successful Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">201</div>
+                                    <div class="status-description">created</div>
+                                </div>
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "<span class="hljs-string">SUCCESSFUL: movie created successfully</span>",
+    "cinema_id": 1,
+}
+                            </code></pre>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Failed Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">400</div>
+                                    <div class="status-description">bad request</div>
+                                </div>
+                            </div>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">403</div>
+                                    <div class="status-description">forbidden</div>
+                                </div>
+                            </div>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">405</div>
+                                    <div class="status-description">method not allowed </div>
+                                </div>
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "<span class="hljs-string">f"ERROR: {error}"</span>",
+}
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+
+
+                <a href="#" class="code-line" onclick="toggleInfo(event, 'add-showtime')">
+                    <span class="method post">POST</span><span class="common-word4">cinema</span>/add-showtime/
+                    <span class="icon">▼</span>
+                </a>
+                <div id="add-showtime" class="info">
+                    <div class="row justify-content-center">
+                        <div class="col-12" style="border-bottom: 1px solid #a4a4a4;width: 95%;">
+                            <div class="row">
+                                <div class="col-8">
+                                    <p class="api-descriptions">add a showtime.</p>
+                                    <ul>
+                                        <li>
+                                            decorator1: admin_requirement
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-4">
+                                    <div class="json-box">
+                                        <h2 class="json-title">Required Data</h2>
+                                        <pre><code class="js rounded">
+valid credential in cookies request
+&&
+{
+    "cinema_name": str,
+    "time": str(format = "yyyy-mm-dd hh:mm"),
+    "movie_name": str,
+    "movie_age_rating": int
+}
+                            </code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Successful Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">201</div>
+                                    <div class="status-description">created</div>
+                                </div>
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": SUCCESSFUL: showtime created successfully",
+}
+                            </code></pre>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Failed Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">400</div>
+                                    <div class="status-description">bad request</div>
+                                </div>
+                            </div>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">401</div>
+                                    <div class="status-description">unauthorized</div>
+                                </div>
+                            </div>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">405</div>
+                                    <div class="status-description">method not allowed </div>
+                                </div>
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "<span class="hljs-string">f"ERROR: {error}"</span>",
+}
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <script>
         function toggleInfo(event, infoId) {

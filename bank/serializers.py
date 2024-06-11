@@ -33,6 +33,7 @@ class CardSerializer:
                 "bank_name": self.instance.bank.name,
                 "card_number": self.instance.card_number,
                 "cvv2": self.instance.cvv2,
+                "balance": self.instance.balance,
                 "expiration_date": self.instance.expiration_date,
             }
             return card

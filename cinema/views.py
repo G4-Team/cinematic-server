@@ -23,7 +23,7 @@ def add_cinema_view(request: Request) -> JsonResponse:
     serializer = CinemaSerializer(data=data)
     try:
         serializer.validate()
-        services.add_cinema(
+        cinema = services.add_cinema(
             name=data["name"],
             ticket_price=data["ticket_price"],
             capacity=data["capacity"],
@@ -33,6 +33,7 @@ def add_cinema_view(request: Request) -> JsonResponse:
         response.status_code = 201
         response_data = {
             "message": "SUCCESSFUL: cinema created successfully",
+            "cinema_id": cinema.id,
         }
         response.text = json.dumps(response_data)
     except KeyError as e:
