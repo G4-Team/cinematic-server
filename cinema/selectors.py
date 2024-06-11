@@ -1,10 +1,12 @@
+from datetime import datetime
+
 from sqlalchemy import select
-from source.database import DatabaseConnection
 from sqlalchemy.orm import Session, selectinload
 from sqlalchemy.orm.query import Query
+
 from cinema.models import Cinema, Showtime, ShowtimeSeats
-from ..movie.models import Movie
-from datetime import datetime
+from movie.models import Movie
+from source.database import DatabaseConnection
 
 
 def get_cinema(id: id) -> Cinema:
@@ -21,6 +23,13 @@ def filter_cinemas(**kwargs) -> Query:
     return cinemas
 
 
+def filter_showtimes(**kwargs) -> Query:
+    with Session(DatabaseConnection.engin) as session:
+        query = session.query(Showtime)
+        showtimes = query.filter_by(**kwargs)
+    return showtimes
+
+
 def get_showtimes() -> list:
     stmt = (
         select(Showtime, Cinema, Movie)
@@ -34,6 +43,7 @@ def get_showtimes() -> list:
         for row in session.execute(stmt):
             result.append(row[0])
     return result
+
 
 def get_movie_showtimes(movie_id: int) -> list:
     stmt = (
@@ -49,6 +59,7 @@ def get_movie_showtimes(movie_id: int) -> list:
             result.append(row[0])
     return result
 
+
 def get_cinema_showtimes(cinema_id: int) -> list:
     stmt = (
         select(Showtime, Cinema, Movie)
@@ -63,11 +74,9 @@ def get_cinema_showtimes(cinema_id: int) -> list:
             result.append(row[0])
     return result
 
+
 def get_showtime_seats(showtime_id: int) -> list:
-    stmt = (
-        select(ShowtimeSeats)
-        .where(ShowtimeSeats.showtime_id == showtime_id)
-    )
+    stmt = select(ShowtimeSeats).where(ShowtimeSeats.showtime_id == showtime_id)
     result = []
     with Session(DatabaseConnection.engin) as session:
         for row in session.execute(stmt):

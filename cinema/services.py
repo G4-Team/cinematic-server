@@ -1,11 +1,18 @@
-from source.database import DatabaseConnection
 from sqlalchemy.orm import Session
 
 from cinema.models import Cinema, Showtime
+from cinema.selectors import get_cinema
+from movie.services import get_or_create_movie
+from source.database import DatabaseConnection
 
 
 def add_cinema(
-    *, name: str, ticket_price: int, capacity: int, number_of_row: int, number_of_col: int
+    *,
+    name: str,
+    ticket_price: int,
+    capacity: int,
+    number_of_row: int,
+    number_of_col: int,
 ) -> None:
     with Session(DatabaseConnection.engin) as session:
         cinema = Cinema(
@@ -18,14 +25,21 @@ def add_cinema(
         session.add(cinema)
         session.commit()
 
+
 def add_showtime(
-        *, show_time: str, cinema_id: int, movie_id: int
+    *,
+    time: str,
+    cinema_id: int,
+    movie_name: str,
+    movie_age_rating: int,
 ) -> None:
     with Session(DatabaseConnection.engin) as session:
+        cinema = get_cinema(id=cinema_id)
+        movie = get_or_create_movie(name=movie_name, age_rating=movie_age_rating)
         showtime = Showtime(
-            show_time=show_time,
-            cinema_id=cinema_id,
-            movie_id=movie_id,
+            show_time=time,
+            cinema=cinema,
+            movie=movie,
         )
         session.add(showtime)
         session.commit()
