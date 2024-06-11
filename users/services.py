@@ -20,7 +20,14 @@ def add_user(
             birthday=birthday,
             wallet=0,
         )
+        s = Subscription(
+            type_subscription="bronze",
+            validity_duration=None,
+            price=0,
+            user=user,
+        )
         session.add(user)
+        session.add(s)
         session.commit()
 
 
@@ -44,6 +51,7 @@ def buy_subscription(user_id: int, type_subscription: str):
 
         if user.wallet >= TypeSubscription[type_subscription].value * 100:
             user.wallet -= TypeSubscription[type_subscription].value * 100
+            session.delete(user.subscription)
             s = Subscription(
                 type_subscription=TypeSubscription[type_subscription].name,
                 validity_duration=TypeSubscription[type_subscription].value,
@@ -55,6 +63,7 @@ def buy_subscription(user_id: int, type_subscription: str):
             raise ValueError(
                 f"insufficient funds. your balance: {user.wallet} - subscription price: {TypeSubscription[type_subscription].value * 100}"
             )
+
         session.add(s)
         session.commit()
     except Exception as e:
