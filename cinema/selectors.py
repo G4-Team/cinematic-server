@@ -40,7 +40,7 @@ def get_showtimes(user: User) -> list:
         .where(
             Showtime.show_time > datetime.datetime.now(),
             Movie.age_rating <= age,
-            Showtime.capacity > 0
+            Showtime.capacity > 0,
         )
         .join(Movie)
         .join(Cinema)
@@ -51,6 +51,7 @@ def get_showtimes(user: User) -> list:
         print(session.execute(stmt).all())
         for row in session.execute(stmt).all():
             result.append(row[0])
+    result = sorted(result, key=lambda x: x.movie.avg_rates, reverse=True)
     return result
 
 
@@ -86,8 +87,6 @@ def get_cinema_showtimes(cinema_id: int) -> list:
 
 def get_showtime_seats(showtime_id: int) -> list:
     stmt = select(ShowtimeSeats).where(ShowtimeSeats.showtime_id == showtime_id)
-    result = []
     with Session(DatabaseConnection.engin) as session:
-        for row in session.execute(stmt):
-            result.append(row[0])
-    return result
+        seats = session.execute(stmt).all()
+    return seats

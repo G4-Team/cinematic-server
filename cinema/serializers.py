@@ -1,6 +1,6 @@
 import re
 
-from cinema.models import Cinema, Showtime
+from cinema.models import Cinema, Showtime, ShowtimeSeats
 from cinema.selectors import filter_cinemas
 
 
@@ -79,5 +79,30 @@ class ShowtimeSerializer:
                 "capacity": self.instance.capacity,
             }
             return showtime
+        else:
+            return None
+
+
+class ShowtimeSeatSerializer:
+    def __init__(
+        self, instance: ShowtimeSeats | None = None, data: dict | None = None
+    ) -> None:
+        self.instance = instance
+        self.data = data
+
+    def validate(self):
+        pass
+
+    @property
+    def serialized_data(self) -> dict:
+        if self.instance is not None:
+            showtime_seat = {
+                "id": self.instance.id,
+                "row": self.instance.row,
+                "col": self.instance.col,
+                "is_reserved": self.instance.is_reserved,
+                "reserved_by": self.instance.reserved_by_id,
+            }
+            return showtime_seat
         else:
             return None
