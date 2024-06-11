@@ -66,3 +66,8 @@ class User(Base):
         "ShowtimeSeats",
         back_populates="reserved_by",
     )
+    subscription = db.orm.relationship(
+        "Subscription",
+        uselist=False,
+        back_populates="user",
+    )
