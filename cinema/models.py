@@ -95,11 +95,15 @@ class Subscription(Base):
         primary_key=True,
         autoincrement=True,
     )
-    type = db.Column(Enum(SubscriptionType))
+    type_subscription = db.Column(Enum(SubscriptionType))
 
     validity_duration = db.Column(
         db.SmallInteger,
         nullable=True,
+    )
+    price = db.Column(
+        db.Float,
+        nullable=False,
     )
 
     created_at = db.Column(

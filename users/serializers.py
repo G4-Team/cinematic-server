@@ -89,6 +89,12 @@ class UserSerializer:
                 "last_login": str(self.instance.created_at),
                 "created_at": str(self.instance.created_at),
                 "wallet": self.instance.wallet,
+                "cinema-subscription": {
+                    "type": str(self.instance.subscription.type_subscription.name),
+                    "validity-duration": self.instance.subscription.validity_duration,
+                    "created-at": str(self.instance.subscription.created_at),
+                    "price": self.instance.subscription.price,
+                },
             }
             return user
         else:

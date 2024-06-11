@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import sqlalchemy as db
 
 from source.model import Base
@@ -48,6 +50,11 @@ class MovieReview(Base):
     text = db.Column(
         db.Text,
         nullable=False,
+    )
+    created_at = db.Column(
+        db.DateTime,
+        nullable=False,
+        default=datetime.now(),
     )
 
     user_id = db.orm.mapped_column(
