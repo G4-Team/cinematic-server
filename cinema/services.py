@@ -13,7 +13,7 @@ def add_cinema(
     capacity: int,
     number_of_row: int,
     number_of_col: int,
-) -> None:
+) -> Cinema:
     with Session(DatabaseConnection.engin) as session:
         cinema = Cinema(
             name=name,
@@ -24,6 +24,7 @@ def add_cinema(
         )
         session.add(cinema)
         session.commit()
+    return cinema
 
 
 def add_showtime(
