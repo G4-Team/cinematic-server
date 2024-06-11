@@ -8,6 +8,7 @@ from bank.serializers import CardSerializer
 from source.decorators import allowed_methods, auth_requirement, owner_requirement
 from source.response import JsonResponse
 from users.selectors import get_user
+from users.utils import hash_password
 
 
 @owner_requirement
@@ -27,7 +28,7 @@ def add_card_view(request: Request, user_id):
             card_number=data["card_number"],
             cvv2=data["cvv2"],
             expiration_date=data["expiration_date"],
-            password=data["password"],
+            password=hash_password(data["password"]),
             balance=data["balance"],
         )
 
@@ -100,7 +101,7 @@ def deposit_view(request: Request, user_id, card_id):
             card_number=data["card_number"],
             cvv2=data["cvv2"],
             expiration_date=data["expiration_date"],
-            password=data["password"],
+            password=hash_password(data["password"]),
         ).first()
 
         if card is None:
@@ -159,7 +160,7 @@ def withdrawal_view(request: Request, user_id, card_id):
             card_number=data["card_number"],
             cvv2=data["cvv2"],
             expiration_date=data["expiration_date"],
-            password=data["password"],
+            password=hash_password(data["password"]),
         ).first()
 
         if card is None:
@@ -218,7 +219,7 @@ def wire_transfer_view(request: Request, user_id, sending_card_id):
             card_number=data["sending_card_number"],
             cvv2=data["cvv2"],
             expiration_date=data["expiration_date"],
-            password=data["password"],
+            password=hash_password(data["password"]),
         ).first()
 
         if sending_card is None:
