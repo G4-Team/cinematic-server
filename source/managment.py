@@ -136,7 +136,7 @@ class ManagementUtility:
         from sqlalchemy.orm import Session
 
         from bank.models import BankAccount
-        from cinema.models import Showtimem, Subscription
+        from cinema.models import Showtime, Subscription
         from movie.models import MovieReview
         from source.database import DatabaseConnection
         from users.models import User
