@@ -33,7 +33,6 @@ def filter_showtimes(**kwargs) -> Query:
 
 def get_showtimes(user: User) -> list:
     age = (datetime.datetime.now().date() - user.birthday).days / 365
-    print(age)
     stmt = (
         select(Showtime, Cinema, Movie)
         .options(selectinload(Showtime.cinema), selectinload(Showtime.movie))
@@ -48,7 +47,6 @@ def get_showtimes(user: User) -> list:
     result = []
 
     with Session(DatabaseConnection.engin) as session:
-        print(session.execute(stmt).all())
         for row in session.execute(stmt).all():
             result.append(row[0])
     result = sorted(result, key=lambda x: x.movie.avg_rates, reverse=True)
