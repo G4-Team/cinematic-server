@@ -198,3 +198,31 @@ def cancel_showtime_view(request: Request, user_id, showtime_seat_id) -> JsonRes
 
     response.text = json.dumps(response_data)
     return response
+
+@owner_requirement
+@auth_requirement
+@allowed_methods(["GET"])
+def list_reserved_seats_view(request: Request, user_id) -> JsonResponse:
+    response = JsonResponse()
+
+    try:
+        reservations = selectors.get_reservations(user_id=int(user_id))
+        response_data = {
+            "message": "SUCCESSFUL: reservations retrived successfully",
+            "reservations": {},
+        }
+        for index, seat in enumerate(reservations):
+            response_data["reservations"][index] = ShowtimeSeatSerializer(
+                instance=seat[0]
+            ).serialized_data
+        response.status_code = 200
+
+        response.text = json.dumps(response_data)
+    except Exception as e:
+        response.status_code = 400
+        response_data = {
+            "message": f"ERROR: {str(e.args)}",
+        }
+        response.text = json.dumps(response_data)
+
+    return response

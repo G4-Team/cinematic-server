@@ -5,6 +5,7 @@ from cinema.views import (
     list_showtime_seats,
     list_showtimes_view,
     reserve_showtime_view,
+    list_reserved_seats_view,
 )
 
 app_name = "cinema"
@@ -16,4 +17,5 @@ cinema_urls = {
     "showtime-seats/{showtime_id}/": list_showtime_seats,
     "reserve/{user_id}/{showtime_seat_id}/": reserve_showtime_view,
     "cancel/{user_id}/{showtime_seat_id}/": cancel_showtime_view,
+    'reserved-seats/{user_id}/': list_reserved_seats_view,
 }
