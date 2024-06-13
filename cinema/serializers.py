@@ -102,6 +102,7 @@ class ShowtimeSeatSerializer:
                 "col": self.instance.col,
                 "is_reserved": self.instance.is_reserved,
                 "reserved_by": self.instance.reserved_by_id,
+                "showtime_id": self.instance.showtime.id,
             }
             return showtime_seat
         else:

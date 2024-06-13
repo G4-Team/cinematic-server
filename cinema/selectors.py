@@ -100,14 +100,24 @@ def get_cinema_showtimes(cinema_id: int) -> list:
 
 
 def get_showtime_seats(showtime_id: int) -> list:
-    stmt = select(ShowtimeSeats).where(ShowtimeSeats.showtime_id == showtime_id)
+    stmt = (
+        select(ShowtimeSeats)
+        .options(selectinload(ShowtimeSeats.showtime))
+        .where(ShowtimeSeats.showtime_id == showtime_id)
+        .join(Showtime)
+    )
     with Session(DatabaseConnection.engin) as session:
         seats = session.execute(stmt).all()
     return seats
 
 
 def get_reservations(user_id: int) -> list:
-    stmt = select(ShowtimeSeats).where(ShowtimeSeats.reserved_by_id == user_id)
+    stmt = (
+        select(ShowtimeSeats, Showtime.id)
+        .options(selectinload(ShowtimeSeats.showtime))
+        .where(ShowtimeSeats.reserved_by_id == user_id)
+        .join(Showtime)
+    )
     with Session(DatabaseConnection.engin) as session:
         reservations = session.execute(stmt).all()
     return reservations

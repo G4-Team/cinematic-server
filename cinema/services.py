@@ -104,6 +104,7 @@ def reserve_seat(user_id: int, seat_id: int):
         final_price = price - discount
         if user.wallet >= final_price:
             user.wallet -= final_price
+            seat.money_spent = final_price
             seat.reserved_by = user
             seat.is_reserved = True
             showtime.capacity -= 1
@@ -143,11 +144,12 @@ def cancel_reserved_seat(user_id: int, seat_id: int):
         user = session.query(User).filter(User.id == user_id).with_for_update().one()
 
         price = 0
-        if (datetime(showtime.show_time) - datetime.now()).total_seconds > 3600:
+        if (showtime.show_time - datetime.now()).total_seconds() > 3600:
             price = seat.money_spent
-        elif datetime(showtime.show_time) > datetime.now():
+        elif showtime.show_time > datetime.now():
             price = seat.money_spent * 0.82
 
+        seat.money_spent = None
         user.wallet += price
         showtime.capacity += 1
         seat.reserved_by = None

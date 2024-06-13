@@ -1821,6 +1821,758 @@ valid credential in cookies request
                         </div>
                     </div>
                 </div>
+
+                <a href="#" class="code-line" onclick="toggleInfo(event, 'all-showtimes')">
+                    <span class="method get">GET</span><span class="common-word4">cinema</span>/showtimes/
+                    <span class="icon">▼</span>
+                </a>
+                <div id="all-showtimes" class="info">
+                    <div class="row justify-content-center">
+                        <div class="col-12" style="border-bottom: 1px solid #a4a4a4;width: 95%;">
+                            <div class="row">
+                                <div class="col-8">
+                                    <p class="api-descriptions">lists all showtimes.</p>
+                                    <ul>
+                                        <li>
+                                            decorator1: admin_requirement
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-4">
+                                    <div class="json-box">
+                                        <h2 class="json-title">Required Data</h2>
+                                        <pre><code class="js rounded">
+valid credential in cookies request
+                            </code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Successful Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">200</div>
+                                    <div class="status-description">ok</div>
+                                </div>
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "SUCCESSFUL: showtimes retrived successfully",
+    "showtimes": {
+        "showtime0": {
+            "id": 1,
+            "time": "2025-01-01 19:00:00",
+            "cinema": {
+                "name": "pardis",
+                "ticket_price": 12.0
+            },
+            "movie": {
+                "name": "Twin Peaks: Fire Walk with Me",
+                "age-rating": 18
+            },
+            "capacity": 30
+        },
+        "showtime1": {
+            "id": 2,
+            "time": "2025-01-01 21:00:00",
+            "cinema": {
+                "name": "pardis",
+                "ticket_price": 12.0
+            },
+            "movie": {
+                "name": "Twin Peaks: Fire Walk with Me",
+                "age-rating": 18
+            },
+            "capacity": 30
+        },
+        "showtime2": {
+            "id": 3,
+            "time": "2025-01-02 19:00:00",
+            "cinema": {
+                "name": "pardis2",
+                "ticket_price": 12.0
+            },
+            "movie": {
+                "name": "Blue Velvet",
+                "age-rating": 18
+            },
+            "capacity": 60
+        },
+        "showtime3": {
+            "id": 4,
+            "time": "2025-01-02 21:00:00",
+            "cinema": {
+                "name": "pardis2",
+                "ticket_price": 12.0
+            },
+            "movie": {
+                "name": "Blue Velvet",
+                "age-rating": 18
+            },
+            "capacity": 60
+        }
+    }
+}
+                            </code></pre>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Failed Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">403</div>
+                                    <div class="status-description">forbidden</div>
+                                </div>
+                            </div>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">405</div>
+                                    <div class="status-description">method not allowed </div>
+                                </div>
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "<span class="hljs-string">f"ERROR: {error}"</span>",
+}
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#" class="code-line" onclick="toggleInfo(event, 'showtimes')">
+                    <span class="method get">GET</span><span class="common-word4">cinema</span>/showtimes/<span
+                        class="parameter">{user_id}</span>/
+                    <span class="icon">▼</span>
+                </a>
+                <div id="showtimes" class="info">
+                    <div class="row justify-content-center">
+                        <div class="col-12" style="border-bottom: 1px solid #a4a4a4;width: 95%;">
+                            <div class="row">
+                                <div class="col-8">
+                                    <p class="api-descriptions">The list of showtimes whose time has not passed and
+                                        whose age category is less than the age of the user.</p>
+                                    <ul>
+                                        <li>
+                                            decorator1: auth_requirement
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-4">
+                                    <div class="json-box">
+                                        <h2 class="json-title">Required Data</h2>
+                                        <pre><code class="js rounded">
+valid credential in cookies request
+                            </code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Successful Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">200</div>
+                                    <div class="status-description">ok</div>
+                                </div>
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "SUCCESSFUL: showtimes retrived successfully",
+    "showtimes": {
+        "showtime0": {
+            "id": 1,
+            "time": "2025-01-01 19:00:00",
+            "cinema": {
+                "name": "pardis",
+                "ticket_price": 12.0
+            },
+            "movie": {
+                "name": "Twin Peaks: Fire Walk with Me",
+                "age-rating": 18
+            },
+            "capacity": 30
+        },
+        "showtime1": {
+            "id": 2,
+            "time": "2025-01-01 21:00:00",
+            "cinema": {
+                "name": "pardis",
+                "ticket_price": 12.0
+            },
+            "movie": {
+                "name": "Twin Peaks: Fire Walk with Me",
+                "age-rating": 18
+            },
+            "capacity": 30
+        },
+        "showtime2": {
+            "id": 3,
+            "time": "2025-01-02 19:00:00",
+            "cinema": {
+                "name": "pardis2",
+                "ticket_price": 12.0
+            },
+            "movie": {
+                "name": "Blue Velvet",
+                "age-rating": 18
+            },
+            "capacity": 60
+        },
+        "showtime3": {
+            "id": 4,
+            "time": "2025-01-02 21:00:00",
+            "cinema": {
+                "name": "pardis2",
+                "ticket_price": 12.0
+            },
+            "movie": {
+                "name": "Blue Velvet",
+                "age-rating": 18
+            },
+            "capacity": 60
+        }
+    }
+}
+                            </code></pre>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Failed Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">403</div>
+                                    <div class="status-description">forbidden</div>
+                                </div>
+                            </div>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">405</div>
+                                    <div class="status-description">method not allowed </div>
+                                </div>
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "<span class="hljs-string">f"ERROR: {error}"</span>",
+}
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#" class="code-line" onclick="toggleInfo(event, 'showtime-seats')">
+                    <span class="method get">GET</span><span class="common-word4">cinema</span>/showtime-seats/<span
+                        class="parameter">{showtime_id}</span>/
+                    <span class="icon">▼</span>
+                </a>
+                <div id="showtime-seats" class="info">
+                    <div class="row justify-content-center">
+                        <div class="col-12" style="border-bottom: 1px solid #a4a4a4;width: 95%;">
+                            <div class="row">
+                                <div class="col-8">
+                                    <p class="api-descriptions">list showtime seats.</p>
+                                    <ul>
+                                        <li>
+                                            decorator1: auth_requirement
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-4">
+                                    <div class="json-box">
+                                        <h2 class="json-title">Required Data</h2>
+                                        <pre><code class="js rounded">
+valid credential in cookies request
+                            </code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Successful Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">200</div>
+                                    <div class="status-description">ok</div>
+                                </div>
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "SUCCESSFUL: seats retrived successfully",
+    "seats": {
+        "0": {
+            "id": 1,
+            "row": 0,
+            "col": 0,
+            "is_reserved": true,
+            "reserved_by": 1,
+            "showtime_id": 1
+        },
+        "1": {
+            "id": 2,
+            "row": 1,
+            "col": 0,
+            "is_reserved": true,
+            "reserved_by": 1,
+            "showtime_id": 1
+        },
+        "2": {
+            "id": 3,
+            "row": 2,
+            "col": 0,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "3": {
+            "id": 4,
+            "row": 3,
+            "col": 0,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "4": {
+            "id": 5,
+            "row": 4,
+            "col": 0,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "5": {
+            "id": 6,
+            "row": 5,
+            "col": 0,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "6": {
+            "id": 7,
+            "row": 0,
+            "col": 1,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "7": {
+            "id": 8,
+            "row": 1,
+            "col": 1,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "8": {
+            "id": 9,
+            "row": 2,
+            "col": 1,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "9": {
+            "id": 10,
+            "row": 3,
+            "col": 1,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "10": {
+            "id": 11,
+            "row": 4,
+            "col": 1,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "11": {
+            "id": 12,
+            "row": 5,
+            "col": 1,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "12": {
+            "id": 13,
+            "row": 0,
+            "col": 2,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "13": {
+            "id": 14,
+            "row": 1,
+            "col": 2,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "14": {
+            "id": 15,
+            "row": 2,
+            "col": 2,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "15": {
+            "id": 16,
+            "row": 3,
+            "col": 2,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "16": {
+            "id": 17,
+            "row": 4,
+            "col": 2,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "17": {
+            "id": 18,
+            "row": 5,
+            "col": 2,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "18": {
+            "id": 19,
+            "row": 0,
+            "col": 3,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "19": {
+            "id": 20,
+            "row": 1,
+            "col": 3,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "20": {
+            "id": 21,
+            "row": 2,
+            "col": 3,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "21": {
+            "id": 22,
+            "row": 3,
+            "col": 3,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "22": {
+            "id": 23,
+            "row": 4,
+            "col": 3,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "23": {
+            "id": 24,
+            "row": 5,
+            "col": 3,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "24": {
+            "id": 25,
+            "row": 0,
+            "col": 4,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "25": {
+            "id": 26,
+            "row": 1,
+            "col": 4,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "26": {
+            "id": 27,
+            "row": 2,
+            "col": 4,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "27": {
+            "id": 28,
+            "row": 3,
+            "col": 4,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "28": {
+            "id": 29,
+            "row": 4,
+            "col": 4,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        },
+        "29": {
+            "id": 30,
+            "row": 5,
+            "col": 4,
+            "is_reserved": false,
+            "reserved_by": null,
+            "showtime_id": 1
+        }
+    }
+}
+                            </code></pre>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Failed Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">403</div>
+                                    <div class="status-description">forbidden</div>
+                                </div>
+                            </div>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">405</div>
+                                    <div class="status-description">method not allowed </div>
+                                </div>
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "<span class="hljs-string">f"ERROR: {error}"</span>",
+}
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#" class="code-line" onclick="toggleInfo(event, 'reserve')">
+                    <span class="method post">POST</span><span class="common-word4">cinema</span>/reserve/<span
+                        class="parameter">{user_id}</span>/<span class="parameter">{showtime_seat_id}</span>/
+                    <span class="icon">▼</span>
+                </a>
+                <div id="reserve" class="info">
+                    <div class="row justify-content-center">
+                        <div class="col-12" style="border-bottom: 1px solid #a4a4a4;width: 95%;">
+                            <div class="row">
+                                <div class="col-8">
+                                    <p class="api-descriptions">reserve showtime seat.</p>
+                                    <ul>
+                                        <li>
+                                            decorator1: auth_requirement
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-4">
+                                    <div class="json-box">
+                                        <h2 class="json-title">Required Data</h2>
+                                        <pre><code class="js rounded">
+valid credential in cookies request
+                            </code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Successful Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">200</div>
+                                    <div class="status-description">ok</div>
+                                </div>
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "SUCCESSFUL: showtime seat reserved successfully"
+}
+                            </code></pre>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Failed Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">403</div>
+                                    <div class="status-description">forbidden</div>
+                                </div>
+                            </div>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">405</div>
+                                    <div class="status-description">method not allowed </div>
+                                </div>
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "<span class="hljs-string">f"ERROR: {error}"</span>",
+}
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#" class="code-line" onclick="toggleInfo(event, 'cancel')">
+                    <span class="method delete">DELETE</span><span class="common-word4">cinema</span>/cancel/<span
+                        class="parameter">{user_id}</span>/<span class="parameter">{showtime_seat_id}</span>/
+                    <span class="icon">▼</span>
+                </a>
+                <div id="cancel" class="info">
+                    <div class="row justify-content-center">
+                        <div class="col-12" style="border-bottom: 1px solid #a4a4a4;width: 95%;">
+                            <div class="row">
+                                <div class="col-8">
+                                    <p class="api-descriptions">calncel reserved showtime seat.</p>
+                                    <ul>
+                                        <li>
+                                            decorator1: auth_requirement
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-4">
+                                    <div class="json-box">
+                                        <h2 class="json-title">Required Data</h2>
+                                        <pre><code class="js rounded">
+valid credential in cookies request
+                            </code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Successful Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">200</div>
+                                    <div class="status-description">ok</div>
+                                </div>
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "SUCCESSFUL: showtime seat canceled successfully"
+}
+                            </code></pre>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Failed Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">403</div>
+                                    <div class="status-description">forbidden</div>
+                                </div>
+                            </div>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">405</div>
+                                    <div class="status-description">method not allowed </div>
+                                </div>
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "<span class="hljs-string">f"ERROR: {error}"</span>",
+}
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#" class="code-line" onclick="toggleInfo(event, 'reserved-seats')">
+                    <span class="method get">GET</span><span class="common-word4">cinema</span>/reserved-seats/<span
+                        class="parameter">{user_id}</span>/
+                    <span class="icon">▼</span>
+                </a>
+                <div id="reserved-seats" class="info">
+                    <div class="row justify-content-center">
+                        <div class="col-12" style="border-bottom: 1px solid #a4a4a4;width: 95%;">
+                            <div class="row">
+                                <div class="col-8">
+                                    <p class="api-descriptions">list reserved showtime seat.</p>
+                                    <ul>
+                                        <li>
+                                            decorator1: auth_requirement
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-4">
+                                    <div class="json-box">
+                                        <h2 class="json-title">Required Data</h2>
+                                        <pre><code class="js rounded">
+valid credential in cookies request
+                            </code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Successful Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">200</div>
+                                    <div class="status-description">ok</div>
+                                </div>
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "SUCCESSFUL: reservations retrived successfully",
+    "reservations": {
+        "0": {
+            "id": 1,
+            "row": 0,
+            "col": 0,
+            "is_reserved": true,
+            "reserved_by": 1,
+            "showtime_id": 1
+        },
+        "1": {
+            "id": 2,
+            "row": 1,
+            "col": 0,
+            "is_reserved": true,
+            "reserved_by": 1,
+            "showtime_id": 1
+        }
+    }
+}
+                            </code></pre>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Failed Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">403</div>
+                                    <div class="status-description">forbidden</div>
+                                </div>
+                            </div>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">405</div>
+                                    <div class="status-description">method not allowed </div>
+                                </div>
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "<span class="hljs-string">f"ERROR: {error}"</span>",
+}
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
