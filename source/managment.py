@@ -2,6 +2,7 @@ import argparse
 import importlib.util
 import os
 import subprocess
+import pwinput
 
 from settings.base import APPS, BASE_DIR
 
@@ -135,7 +136,7 @@ class ManagementUtility:
         print("Create a super user ...")
         username = input("username: ")
         email = input("email: ")
-        password = input("password: ")
+        password = pwinput.pwinput()
         birthday = input("birthday: ")
 
         from sqlalchemy.orm import Session
