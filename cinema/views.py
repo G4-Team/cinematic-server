@@ -228,6 +228,7 @@ def cancel_showtime_view(request: Request, user_id, showtime_seat_id) -> JsonRes
     response.text = json.dumps(response_data)
     return response
 
+
 @owner_requirement
 @auth_requirement
 @allowed_methods(["GET"])
