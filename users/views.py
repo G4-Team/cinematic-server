@@ -5,7 +5,8 @@ from webob import Request
 
 from bank.selectors import filter_cards
 from bank.services import charge_wallet
-from source.decorators import allowed_methods, auth_requirement, owner_requirement
+from source.decorators import (allowed_methods, auth_requirement,
+                               owner_requirement)
 from source.response import JsonResponse
 from users import selectors, services
 from users.serializers import UserSerializer
@@ -17,32 +18,32 @@ def register_user_view(request: Request) -> JsonResponse:
     response = JsonResponse()
     data = json.loads(request.body)
     serializer = UserSerializer(data=data)
-    try:
-        serializer.validate()
-        services.add_user(
-            username=data["username"],
-            email=data["email"],
-            phone=data.get("phone", None),
-            password=hash_password(data["password"]),
-            birthday=data["birthday"],
-        )
-        response.status_code = 201
-        response_data = {
-            "message": "SUCCESSFUL: user created successfuly",
-        }
-        response.text = json.dumps(response_data)
-    except KeyError as e:
-        response.status_code = 400
-        response_data = {
-            "message": f"ERROR: please send {str(e.args)}",
-        }
-        response.text = json.dumps(response_data)
-    except Exception as e:
-        response.status_code = 400
-        response_data = {
-            "message": f"ERROR: {str(e)}",
-        }
-        response.text = json.dumps(response_data)
+    # try:
+    serializer.validate()
+    services.add_user(
+        username=data["username"],
+        email=data["email"],
+        phone=data.get("phone", None),
+        password=hash_password(data["password"]),
+        birthday=data["birthday"],
+    )
+    response.status_code = 201
+    response_data = {
+        "message": "SUCCESSFUL: user created successfuly",
+    }
+    response.text = json.dumps(response_data)
+    # except KeyError as e:
+    #     response.status_code = 400
+    #     response_data = {
+    #         "message": f"ERROR: please send {str(e.args)}",
+    #     }
+    #     response.text = json.dumps(response_data)
+    # except Exception as e:
+    #     response.status_code = 400
+    #     response_data = {
+    #         "message": f"ERROR: {str(e)}",
+    #     }
+    #     response.text = json.dumps(response_data)
 
     return response
 

@@ -56,7 +56,7 @@ class Subscription(Base):
     __tablename__ = "subscriptions"
 
     id = db.Column(
-        db.BigInteger,
+        db.Integer,
         primary_key=True,
         autoincrement=True,
     )

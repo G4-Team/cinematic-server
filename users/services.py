@@ -1,6 +1,7 @@
+import datetime
 from enum import Enum
 
-from sqlalchemy import update
+from sqlalchemy import delete, update
 from sqlalchemy.orm import Session
 
 from cinema.models import Subscription
@@ -11,13 +12,15 @@ from users.models import User
 def add_user(
     *, username: str, email: str, phone: None | str = None, password: str, birthday: str
 ) -> None:
+
     with Session(DatabaseConnection.engin) as session:
+
         user = User(
             username=username,
             email=email,
             phone=phone,
             password=password,
-            birthday=birthday,
+            birthday=datetime.datetime.strptime(birthday, "%Y-%m-%d").date(),
             wallet=0,
         )
         s = Subscription(
@@ -78,3 +81,9 @@ def buy_subscription(user_id: int, type_subscription: str):
         raise e
     finally:
         session.close()
+
+
+def delete_user(username):
+    with Session(DatabaseConnection.engin) as session:
+        stmt = delete(User).where(User.username == "test")
+        session.execute(statement=stmt)
