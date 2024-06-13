@@ -5,7 +5,12 @@ from webob import Request
 
 from bank.selectors import filter_cards
 from bank.services import charge_wallet
-from source.decorators import allowed_methods, auth_requirement, owner_requirement
+from source.decorators import (
+    allowed_methods,
+    auth_requirement,
+    owner_requirement,
+    tracker,
+)
 from source.response import JsonResponse
 from users import selectors, services
 from users.serializers import UserSerializer
@@ -47,6 +52,7 @@ def register_user_view(request: Request) -> JsonResponse:
     return response
 
 
+@tracker
 @owner_requirement
 @auth_requirement
 @allowed_methods(["GET"])
