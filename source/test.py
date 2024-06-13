@@ -11,22 +11,18 @@ from source.url import UrlManager
 
 
 class TestCase(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.engine = DatabaseConnection.create_engin(
+    def setUp(self) -> None:
+        self.engine = DatabaseConnection.create_engin(
             db_url=f"sqlite:///{BASE_DIR}/test.db"
         )
-        Base.metadata.create_all(cls.engine)
-        cls.connection = cls.engine.connect()
-        cls.Session = sessionmaker(bind=cls.engine)
+        Base.metadata.create_all(self.engine)
+        self.connection = self.engine.connect()
+        self.Session = sessionmaker(bind=self.engine)
 
-    # def tearDown(self):
-    #     Base.metadata.drop_all(self.connection)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.connection.close()
-        cls.engine.dispose()
+    def tearDown(self):
+        Base.metadata.drop_all(self.connection)
+        self.connection.close()
+        self.engine.dispose()
 
 
 w = wsgi.WSGIHandler()
