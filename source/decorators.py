@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from source.authentication import is_admin, is_authenticate, is_owner
 from source.wsgi import WSGIHandler
 
@@ -43,3 +45,17 @@ def allowed_methods(methods: list):
         return wrapper
 
     return dec_method
+
+
+def tracker(view):
+    def wrapper(*args, **kwargs):
+        f = open("./logs/cinema.log", "a")
+        f.write(f"\n\n----- new request ----- {datetime.now()}\n\n")
+        f.write(f"[request]: \n{args[0]}")
+        response = view(*args, **kwargs)
+        f.write(f"\n\n[response]:\n {response}")
+        f.write(f"\n\n----- end request ----- {datetime.now()}\n\n")
+        f.close()
+        return response
+
+    return wrapper

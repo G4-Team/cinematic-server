@@ -5,12 +5,18 @@ from webob import Request
 
 from bank import selectors, services
 from bank.serializers import CardSerializer
-from source.decorators import allowed_methods, auth_requirement, owner_requirement
+from source.decorators import (
+    allowed_methods,
+    auth_requirement,
+    owner_requirement,
+    tracker,
+)
 from source.response import JsonResponse
 from users.selectors import get_user
 from users.utils import hash_password
 
 
+@tracker
 @owner_requirement
 @auth_requirement
 @allowed_methods(["POST"])
@@ -54,6 +60,7 @@ def add_card_view(request: Request, user_id):
     return response
 
 
+@tracker
 @owner_requirement
 @auth_requirement
 @allowed_methods(["GET"])

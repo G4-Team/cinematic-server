@@ -4,10 +4,16 @@ from webob import Request
 
 from movie import selectors, services
 from movie.serializers import MovieSerializer
-from source.decorators import admin_requirement, allowed_methods, auth_requirement
+from source.decorators import (
+    admin_requirement,
+    allowed_methods,
+    auth_requirement,
+    tracker,
+)
 from source.response import JsonResponse
 
 
+@tracker
 @admin_requirement
 @allowed_methods(["POST"])
 def add_movie_view(request: Request) -> JsonResponse:
@@ -42,6 +48,7 @@ def add_movie_view(request: Request) -> JsonResponse:
     return response
 
 
+@tracker
 @auth_requirement
 @allowed_methods(["POST"])
 def add_movie_review_view(request: Request, user_id, movie_id) -> JsonResponse:
@@ -75,6 +82,7 @@ def add_movie_review_view(request: Request, user_id, movie_id) -> JsonResponse:
     return response
 
 
+@tracker
 @auth_requirement
 @allowed_methods(["POST"])
 def add_comment_movie_review_view(request: Request, user_id, review_id) -> JsonResponse:
@@ -108,6 +116,7 @@ def add_comment_movie_review_view(request: Request, user_id, review_id) -> JsonR
     return response
 
 
+@tracker
 @allowed_methods(["GET"])
 def list_movie_comments_view(request: Request, movie_id) -> JsonResponse:
     response = JsonResponse()
@@ -127,4 +136,3 @@ def list_movie_comments_view(request: Request, movie_id) -> JsonResponse:
     response.text = json.dumps(response_data)
 
     return response
-

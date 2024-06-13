@@ -13,11 +13,13 @@ from source.decorators import (
     allowed_methods,
     auth_requirement,
     owner_requirement,
+    tracker,
 )
 from source.response import JsonResponse
 from users.selectors import get_user
 
 
+@tracker
 @admin_requirement
 @auth_requirement
 @allowed_methods(["POST"])
@@ -55,6 +57,7 @@ def add_cinema_view(request: Request) -> JsonResponse:
     return response
 
 
+@tracker
 @admin_requirement
 @auth_requirement
 @allowed_methods(["POST"])
@@ -96,6 +99,7 @@ def add_showtime_view(request: Request) -> JsonResponse:
     return response
 
 
+@tracker
 @admin_requirement
 @auth_requirement
 @allowed_methods(["GET"])
@@ -125,6 +129,7 @@ def list_all_showtimes_view(request: Request) -> JsonResponse:
     return response
 
 
+@tracker
 @owner_requirement
 @auth_requirement
 @allowed_methods(["GET"])
@@ -155,6 +160,7 @@ def list_showtimes_view(request: Request, user_id: int) -> JsonResponse:
     return response
 
 
+@tracker
 @auth_requirement
 @allowed_methods(["GET"])
 def list_showtime_seats(request: Request, showtime_id) -> JsonResponse:
@@ -183,6 +189,7 @@ def list_showtime_seats(request: Request, showtime_id) -> JsonResponse:
     return response
 
 
+@tracker
 @owner_requirement
 @auth_requirement
 @allowed_methods(["POST"])
@@ -205,6 +212,7 @@ def reserve_showtime_view(request: Request, user_id, showtime_seat_id) -> JsonRe
     return response
 
 
+@tracker
 @owner_requirement
 @auth_requirement
 @allowed_methods(["DELETE"])
@@ -229,6 +237,7 @@ def cancel_showtime_view(request: Request, user_id, showtime_seat_id) -> JsonRes
     return response
 
 
+@tracker
 @owner_requirement
 @auth_requirement
 @allowed_methods(["GET"])
