@@ -29,10 +29,10 @@ class TestUserRegisterView(test.TestCase):
         url = "/users/register/"
 
         # username
-        # data = {
-        #     "username": "x",
-        # }
-        json_data = json.dumps(self.valid_data)
+        data = {
+            "username": "x",
+        }
+        json_data = json.dumps(data)
 
         response = self.clinet.send_request(
             url=url,
