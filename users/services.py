@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 from cinema.models import Subscription
 from source.database import DatabaseConnection
 from users.models import User
+from users.utils import hash_password
 
 
 def add_user(
@@ -87,3 +88,25 @@ def delete_user(username):
     with Session(DatabaseConnection.engin) as session:
         stmt = delete(User).where(User.username == "test")
         session.execute(statement=stmt)
+
+
+def create_admin(*, username, email, password, birthday):
+    with Session(DatabaseConnection.engin) as session:
+        user = User(
+            username=username,
+            email=email,
+            password=hash_password(password),
+            birthday=datetime.datetime.strptime(birthday, "%Y-%m-%d").date(),
+            wallet=0,
+            is_admin=True,
+        )
+        s = Subscription(
+            type_subscription="bronze",
+            validity_duration=None,
+            price=0,
+            user=user,
+            credit=0,
+        )
+        session.add(user)
+        session.add(s)
+        session.commit()

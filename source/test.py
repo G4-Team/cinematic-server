@@ -33,10 +33,20 @@ class Cilent:
     def __init__(self) -> None:
         pass
 
-    def send_request(self, *, url, method, data, content_type) -> Response:
+    def send_request(
+        self,
+        *,
+        url,
+        method,
+        data,
+        content_type,
+        cookies={},
+    ) -> Response:
         __request = Request.blank(path=url)
         __request.body = data.encode("utf-8")
         __request.method = method
         __request.content_type = content_type
+        for key, value in cookies.items():
+            __request.cookies[key] = value
         response = w.handle_request(request=__request)
         return response
