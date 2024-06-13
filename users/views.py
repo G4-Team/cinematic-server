@@ -17,6 +17,7 @@ from users.serializers import UserSerializer
 from users.utils import creat_jwt_token, hash_password
 
 
+@tracker
 @allowed_methods(["POST"])
 def register_user_view(request: Request) -> JsonResponse:
     response = JsonResponse()
@@ -87,6 +88,7 @@ def profile_view(request: Request, user_id: str) -> JsonResponse:
     return response
 
 
+@tracker
 @allowed_methods(["POST"])
 def login_view(request: Request) -> JsonResponse:
     response = JsonResponse()
@@ -132,6 +134,7 @@ def login_view(request: Request) -> JsonResponse:
     return response
 
 
+@tracker
 @owner_requirement
 @auth_requirement
 @allowed_methods(["PUT"])
@@ -168,6 +171,7 @@ def change_profile_view(request: Request, user_id):
     return response
 
 
+@tracker
 @owner_requirement
 @auth_requirement
 @allowed_methods(["PUT"])
@@ -210,6 +214,7 @@ def change_password_view(request: Request, user_id):
     return response
 
 
+@tracker
 @owner_requirement
 @auth_requirement
 @allowed_methods(["PUT"])
@@ -271,6 +276,7 @@ def charge_wallet_view(request: Request, user_id):
     return response
 
 
+@tracker
 @owner_requirement
 @auth_requirement
 @allowed_methods(["PUT"])
