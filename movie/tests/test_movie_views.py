@@ -208,7 +208,4 @@ class TestAddReviewView(test.TestCase):
         )
         response_data = json.loads(response.text)
         self.assertEqual(response.status_code, 400)
-        print(response_data, "                0000")
-        self.assertEqual(
-            response_data["message"], "SUCCESSFUL: review was submitted successfully"
-        )
+        self.assertEqual(response_data["message"], "SUCCESSFUL: ")

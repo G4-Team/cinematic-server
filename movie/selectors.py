@@ -27,6 +27,7 @@ def dfs_comments_to_dict(comment: MovieReview):
             "text": reply.text,
             "rate": reply.rate,
             "created_at": str(reply.created_at),
+            "username": comment.user.username,
         }
         if reply.replies:
             replies[reply.id]["replies"] = dfs_comments_to_dict(reply)
@@ -47,6 +48,7 @@ def list_commets(movie_id: int) -> dict:
                 "text": comment.text,
                 "rate": comment.rate,
                 "created_at": str(comment.created_at),
+                "username": comment.user.username,
             }
             if comment.replies:
                 all_comments_dict[comment.id]["replies"] = dfs_comments_to_dict(comment)
