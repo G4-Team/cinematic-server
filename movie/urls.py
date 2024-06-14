@@ -13,4 +13,3 @@ movie_urls = {
     "comment/add/{user_id}/{review_id}/": add_comment_movie_review_view,
     "comment/list/{movie_id}/": list_movie_comments_view,
 }
-

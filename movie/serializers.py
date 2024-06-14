@@ -46,6 +46,7 @@ class MovieReviewSerializer:
                 "text": self.instance.text,
                 "user_id": self.instance.user_id,
                 "movie_id": self.instance.movie_id,
+                "created_at": str(self.instance.created_at),
             }
             if self.instance.rate:
                 movie["rate"] = self.instance.rate
