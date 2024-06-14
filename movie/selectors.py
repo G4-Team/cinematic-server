@@ -23,8 +23,10 @@ def dfs_comments_to_dict(comment: MovieReview):
     replies = dict()
     for reply in comment.replies:
         replies[reply.id] = {
+            "id": reply.id,
             "text": reply.text,
             "rate": reply.rate,
+            "created_at": str(reply.created_at),
         }
         if reply.replies:
             replies[reply.id]["replies"] = dfs_comments_to_dict(reply)
@@ -41,10 +43,11 @@ def list_commets(movie_id: int) -> dict:
         all_comments_dict = dict()
         for comment in root_comments:
             all_comments_dict[comment.id] = {
+                "id": comment.id,
                 "text": comment.text,
                 "rate": comment.rate,
+                "created_at": str(comment.created_at),
             }
             if comment.replies:
                 all_comments_dict[comment.id]["replies"] = dfs_comments_to_dict(comment)
         return all_comments_dict
-

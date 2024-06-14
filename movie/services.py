@@ -24,6 +24,7 @@ def add_movie(*, name: str):
         movie = Movie(name=name)
         session.add(movie)
         session.commit()
+        return session.query(Movie).get(movie.id)
 
 
 def add_movie_review(*, rate: float, text: str, user_id: int, movie_id: int):
@@ -47,6 +48,7 @@ def add_movie_review(*, rate: float, text: str, user_id: int, movie_id: int):
             conn.execute(statement=stmt2)
         session.add(review)
         session.commit()
+        return session.query(MovieReview).get(review.id)
 
 
 def add_comment_movie_review(*, text: str, user_id: int, review_id: int):
@@ -54,15 +56,16 @@ def add_comment_movie_review(*, text: str, user_id: int, review_id: int):
     user = get_user(user_id)
 
     with Session(DatabaseConnection.engin) as session:
-        review = MovieReview(
+        comment = MovieReview(
             text=text,
             user=user,
             movie=get_movie(review.movie_id),
             reply_to=review,
         )
 
-        session.add(review)
+        session.add(comment)
         session.commit()
+        return session.query(MovieReview).get(comment.id)
 
 
 def get_or_create_movie(name: str, age_rating: int) -> Movie:
