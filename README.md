@@ -22,7 +22,11 @@ cp .env.example .env
 ```
 python manager.py migrations
 ```
-6- start server and run the project
+6- create logs directory in root
+```
+mkdir logs
+```
+7- start server and run the project
 ```
 python manager.py runserver
 ```
