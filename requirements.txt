@@ -5,4 +5,4 @@ python-environ==0.4.54
 mysql-connector-python==8.4.0
 sqlalchemy==2.0.30 # https://github.com/sqlalchemy/sqlalchemy
 pyjwt==2.8.0 # https://github.com/jpadilla/pyjwt
-
+pwinput==1.0.3

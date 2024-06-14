@@ -47,7 +47,7 @@ class WSGIHandler:
     def response_home(self, request):
         response = Response()
         response.content_type = "text/html"
-        models_filename = BASE_DIR / "ApiDoc" / "doc.html"
+        models_filename = BASE_DIR / "document" / "urls-document.html"
         with open(models_filename, "r") as f:
             html_help_content = f.read()
 

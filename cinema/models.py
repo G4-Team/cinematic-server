@@ -10,7 +10,7 @@ from source.model import Base
 class Cinema(Base):
     __tablename__ = "cinemas"
 
-    id = db.Column(db.BigInteger, primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(255), unique=True, nullable=False)
     ticket_price = db.Column(db.Float, nullable=False)
     capacity = db.Column(db.Integer, nullable=False)
@@ -22,7 +22,7 @@ class Cinema(Base):
 class Showtime(Base):
     __tablename__ = "showtimes"
 
-    id = db.Column(db.BigInteger, primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     show_time = db.Column(db.DateTime, nullable=False)
     capacity = db.Column(db.Integer, nullable=False)
     seats = db.orm.relationship("ShowtimeSeats", back_populates="showtime")
@@ -35,7 +35,7 @@ class Showtime(Base):
 class ShowtimeSeats(Base):
     __tablename__ = "showtime_seats"
 
-    id = db.Column(db.BigInteger, primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     showtime_id = db.orm.mapped_column(db.ForeignKey("showtimes.id"), nullable=False)
     showtime = db.orm.relationship("Showtime", back_populates="seats")
     is_reserved = db.Column(db.Boolean, nullable=False, default=False)
@@ -56,7 +56,7 @@ class Subscription(Base):
     __tablename__ = "subscriptions"
 
     id = db.Column(
-        db.BigInteger,
+        db.Integer,
         primary_key=True,
         autoincrement=True,
     )

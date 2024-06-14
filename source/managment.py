@@ -2,6 +2,7 @@ import argparse
 import importlib.util
 import os
 import subprocess
+import pwinput
 
 from settings.base import APPS, BASE_DIR
 
@@ -28,6 +29,9 @@ class ManagementUtility:
         # createsuperuser command
         subparsers.add_parser("createsuperuser", help="Create a new super user")
 
+        # run tests command
+        subparsers.add_parser("test", help="run all test case in project")
+
         return parser
 
     @staticmethod
@@ -46,6 +50,8 @@ class ManagementUtility:
             ManagementUtility.migrations()
         elif args.command == "createsuperuser":
             ManagementUtility.createsuperuser()
+        elif args.command == "test":
+            ManagementUtility.tests()
         else:
             parser.print_help()
 
@@ -130,7 +136,7 @@ class ManagementUtility:
         print("Create a super user ...")
         username = input("username: ")
         email = input("email: ")
-        password = input("password: ")
+        password = pwinput.pwinput()
         birthday = input("birthday: ")
 
         from sqlalchemy.orm import Session
@@ -163,3 +169,10 @@ class ManagementUtility:
             session.add(s)
             session.commit()
         print("Super user created successfully.")
+
+    @classmethod
+    def tests(cls):
+        subprocess.run(["python", "-m", "unittest"])
+        DB_test = BASE_DIR / "test.db"
+        if os.path.exists(DB_test):
+            os.remove(DB_test)
