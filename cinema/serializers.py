@@ -69,10 +69,12 @@ class ShowtimeSerializer:
                 "id": self.instance.id,
                 "time": str(self.instance.show_time),
                 "cinema": {
+                    "cinema_id": self.instance.cinema.id,
                     "name": self.instance.cinema.name,
                     "ticket_price": self.instance.cinema.ticket_price,
                 },
                 "movie": {
+                    "movie_id": self.instance.movie.id,
                     "name": self.instance.movie.name,
                     "age-rating": self.instance.movie.age_rating,
                 },
