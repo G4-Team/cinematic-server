@@ -265,3 +265,27 @@ def list_reserved_seats_view(request: Request, user_id) -> JsonResponse:
         response.text = json.dumps(response_data)
 
     return response
+
+@auth_requirement
+@allowed_methods(["GET"])
+def list_showtime_details_view(request: Request, showtime_id) -> JsonResponse:
+    response = JsonResponse()
+
+    try:
+        showtime = selectors.filter_showtimes(showtime_id=int(showtime_id)).first()
+        response_data = {
+            "message": "SUCCESSFUL: showtime retrived successfully",
+            "showtime": showtime,
+        }
+        response.status_code = 200
+
+        response.text = json.dumps(response_data)
+    except Exception as e:
+        response.status_code = 400
+        response_data = {
+            "message": f"ERROR: {str(e.args)}",
+        }
+        response.text = json.dumps(response_data)
+
+    return response
+
