@@ -34,7 +34,8 @@ def filter_showtimes(**kwargs) -> Query:
 def get_all_showtimes() -> list:
     stmt = (
         select(Showtime, Cinema, Movie)
-        .options(selectinload(Showtime.cinema), selectinload(Showtime.movie))
+        .options(selectinload(Showtime.cinema))
+        .options(selectinload(Showtime.movie))
         .join(Movie)
         .join(Cinema)
     )
@@ -43,7 +44,7 @@ def get_all_showtimes() -> list:
     with Session(DatabaseConnection.engin) as session:
         for row in session.execute(stmt).all():
             result.append(row[0])
-    result = sorted(result, key=lambda x: x.movie.show_times)
+    result = sorted(result, key=lambda x: x.movie.id)
     return result
 
 

@@ -1858,29 +1858,33 @@ valid credential in cookies request
                             </div>
                             <pre><code class="json rounded">
 {
-    "message": "SUCCESSFUL: showtimes retrived successfully",
+    "message": "SUCCESSFUL: all showtimes retrived successfully",
     "showtimes": {
         "showtime0": {
             "id": 1,
             "time": "2025-01-01 19:00:00",
             "cinema": {
+                "cinema_id": 1,
                 "name": "pardis",
                 "ticket_price": 12.0
             },
             "movie": {
+                "movie_id": 1,
                 "name": "Twin Peaks: Fire Walk with Me",
                 "age-rating": 18
             },
-            "capacity": 30
+            "capacity": 28
         },
         "showtime1": {
             "id": 2,
             "time": "2025-01-01 21:00:00",
             "cinema": {
+                "cinema_id": 1,
                 "name": "pardis",
                 "ticket_price": 12.0
             },
             "movie": {
+                "movie_id": 1,
                 "name": "Twin Peaks: Fire Walk with Me",
                 "age-rating": 18
             },
@@ -1890,10 +1894,12 @@ valid credential in cookies request
             "id": 3,
             "time": "2025-01-02 19:00:00",
             "cinema": {
+                "cinema_id": 2,
                 "name": "pardis2",
                 "ticket_price": 12.0
             },
             "movie": {
+                "movie_id": 2,
                 "name": "Blue Velvet",
                 "age-rating": 18
             },
@@ -1903,15 +1909,95 @@ valid credential in cookies request
             "id": 4,
             "time": "2025-01-02 21:00:00",
             "cinema": {
+                "cinema_id": 2,
                 "name": "pardis2",
                 "ticket_price": 12.0
             },
             "movie": {
+                "movie_id": 2,
                 "name": "Blue Velvet",
                 "age-rating": 18
             },
             "capacity": 60
         }
+    }
+}
+                            </code></pre>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Failed Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">403</div>
+                                    <div class="status-description">forbidden</div>
+                                </div>
+                            </div>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">405</div>
+                                    <div class="status-description">method not allowed </div>
+                                </div>
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "<span class="hljs-string">f"ERROR: {error}"</span>",
+}
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="code-line" onclick="toggleInfo(event, 'showtime-details')">
+                    <span class="method get">GET</span><span class="common-word4">cinema</span>/showtime/<span
+                        class="parameter">{showtime_id}</span>/
+                    <span class="icon">▼</span>
+                </a>
+                <div id="showtime-details" class="info">
+                    <div class="row justify-content-center">
+                        <div class="col-12" style="border-bottom: 1px solid #a4a4a4;width: 95%;">
+                            <div class="row">
+                                <div class="col-8">
+                                    <p class="api-descriptions">lists all showtimes.</p>
+                                    <ul>
+                                        <li>
+                                            decorator1: admin_requirement
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-4">
+                                    <div class="json-box">
+                                        <h2 class="json-title">Required Data</h2>
+                                        <pre><code class="js rounded">
+valid credential in cookies request
+                            </code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12" style="margin-top: 30px; width: 95%;">
+                            <h2 class="response-title">Successful Response:</h2>
+                            <div class="category">
+                                <div class="status-label">
+                                    <div class="status-code">200</div>
+                                    <div class="status-description">ok</div>
+                                </div>
+                            </div>
+                            <pre><code class="json rounded">
+{
+    "message": "SUCCESSFUL: showtime retrived successfully",
+    "showtime": {
+        "id": 1,
+        "time": "2025-01-01 19:00:00",
+        "cinema": {
+            "cinema_id": 1,
+            "name": "pardis",
+            "ticket_price": 12.0
+        },
+        "movie": {
+            "movie_id": 1,
+            "name": "Twin Peaks: Fire Walk with Me",
+            "age-rating": 18
+        },
+        "capacity": 28
     }
 }
                             </code></pre>
