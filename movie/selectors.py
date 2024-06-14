@@ -41,6 +41,7 @@ def list_commets(movie_id: int) -> dict:
         all_comments_dict = dict()
         for comment in root_comments:
             all_comments_dict[comment.id] = {
+                'id': comment.id,
                 "text": comment.text,
                 "rate": comment.rate,
             }
